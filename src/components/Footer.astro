@@ -1,0 +1,47 @@
+---
+import LinkedIn from "../assets/linkedin.svg"
+import Twitter from "../assets/twitter.svg"
+---
+
+<footer class="py-10 bg-white">
+	<div class="container row px-8 rounded-[50px]">
+		<div class="one-half column">
+			<div class="flex">
+				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">About</a>
+				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">Help Center</a>
+				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">Privacy</a>
+				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">Terms</a>
+			</div>
+		</div>
+		<div class="one-half column">
+			<div class="float-right">
+				<div class="flex">
+					<p class="text-[1.8rem] text-[#222]">© Idol 2023</p>
+					<a href="/" class="pl-5"
+						><img src={Twitter.src} alt="Twitter icon" class="w-7 md:w-5" /></a
+					>
+					<a href="/" class="pl-5"
+						><img src={LinkedIn.src} alt="Linkedin icon" class="w-7 md:w-5" /></a
+					>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<style>
+	@media (max-width: 700px) {
+		.flex {
+			justify-content: center;
+		}
+		.column {
+			padding: 10px 0;
+		}
+		.float-right {
+			float: none;
+		}
+		.text-\[1\.8rem\] {
+			font-size: 1.5rem;
+		}
+	}
+</style>

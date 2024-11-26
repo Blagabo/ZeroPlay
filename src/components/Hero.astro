@@ -1,0 +1,51 @@
+---
+import Bomb from "../assets/bomb.svg"
+import Folder from "../assets/folder.svg"
+import Gift from "../assets/gift.svg"
+import Mailbox from "../assets/mailbox.svg"
+import Savings from "../assets/savings.svg"
+---
+
+<section class="py-[50px]">
+	<div class="container relative">
+		<div class="h-[500px]">
+			<div class="text-center">
+				<div class="max-w-[600px] mx-auto">
+					<h1 class="text-[4rem] font-bold my-5">
+						Automate your design process for creative freedom
+					</h1>
+					<p class="text-[1.8rem] my-5">
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat excepturi dignissimos
+						exercitationem nesciunt, quo quibusdam assums? Architecto, placeat libero.
+					</p>
+					<div class="max-w-[250px] mx-auto">
+						<a href="/" class="button button-primary w-full mb-[3px]">Start Trial — It's Free</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="p-[5px] rounded-[48px]">
+			<img src={Bomb.src} alt="Dynamite" class="absolute w-[160px] top-0 -left-[100px] md:block" />
+			<img
+				src={Mailbox.src}
+				alt="Mailbox"
+				class="absolute w-[160px] top-0 -right-[100px] md:block hidden"
+			/>
+			<img
+				src={Folder.src}
+				alt="Folder"
+				class="absolute w-[160px] top-[250px] left-0 md:block hidden"
+			/>
+			<img
+				src={Savings.src}
+				alt="Money"
+				class="absolute w-[160px] top-[250px] right-0 md:block hidden"
+			/>
+			<img
+				src={Gift.src}
+				alt="Gift"
+				class="absolute w-[160px] -bottom-[20px] left-1/2 transform -translate-x-1/2"
+			/>
+		</div>
+	</div>
+</section>

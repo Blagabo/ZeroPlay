@@ -7,7 +7,7 @@ const { title } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -15,36 +15,30 @@ const { title } = Astro.props
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+		/>
 	</head>
-	<body>
+	<body class="font-manrope m-0 bg-gradient-to-t from-[#dfe9f3] to-white">
 		<slot />
 	</body>
 </html>
+
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+	.button {
+		@apply rounded-lg;
 	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
+	.button-primary,
+	.button-primary:hover,
+	.button-primary:focus {
+		@apply bg-accent border-accent;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+	.button:hover {
+		@apply opacity-80;
+	}
+
+	section {
+		@apply py-[70px];
 	}
 </style>
