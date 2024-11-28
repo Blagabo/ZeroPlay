@@ -1,26 +1,84 @@
 ---
-import Logo from "../assets/logodark.svg"
+
 ---
 
-<header class="py-4">
-	<div class="container row">
-		<div class="nav-logo one-third column">
-			<a href="/" class="block">
-				<img src={Logo.src} alt="Brand logo" class="w-[90px] mt-[5px]" />
-			</a>
+<header class="fixed left-0 right-0 top-0 z-50">
+	<nav class="glass border-b border-white/10">
+		<div class="m-2 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="flex h-16 items-center justify-between">
+				<div class="flex-shrink-0">
+					<a href="/" class="flex items-center">
+						<span class="text-4xl font-bold text-white"
+							>Zero<span class="text-primary-500">Play</span></span
+						>
+					</a>
+				</div>
+
+				<div class="hidden md:block">
+					<div class="ml-10 flex items-center space-x-8">
+						<a href="/#planes" class="text-white/80 transition-colors hover:text-white">Planes</a>
+						<a href="/setup-guide" class="text-white/80 transition-colors hover:text-white"
+							>Guia de Instalacion</a
+						>
+						<a href="/#faq" class="text-white/80 transition-colors hover:text-white">FAQ</a>
+						<a
+							href="https://ig.me/m/zeroplay.tv"
+							target="_blank"
+							class="rounded-lg bg-primary-500 px-4 py-2 font-medium text-dark-500 transition-colors hover:bg-primary-600"
+						>
+							Contactar
+						</a>
+					</div>
+				</div>
+
+				<div class="md:hidden">
+					<button
+						id="mobile-menu-button"
+						class="text-white transition-colors hover:text-primary-400"
+					>
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 6h16M4 12h16M4 18h16"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
 		</div>
-		<nav class="one-third column md:block hidden">
-			<ul class="text-center flex justify-center">
-				<li class="list-none mt-[7px]">
-					<a href="#features" class="text-[#111] px-5 no-underline">Features</a>
-				</li>
-				<li class="list-none mt-[7px]">
-					<a href="#pricing" class="text-[#111] px-5 no-underline">Pricing</a>
-				</li>
-				<li class="list-none mt-[7px]">
-					<a href="#customers" class="text-[#111] px-5 no-underline">Customers</a>
-				</li>
-			</ul>
-		</nav>
-	</div>
+
+		<div id="mobile-menu" class="hidden md:hidden">
+			<div class="glass space-y-1 border-t border-white/10 px-2 pb-3 pt-2">
+				<a href="/#planes" class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
+					>Planes</a
+				>
+				<a href="#faq" class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
+					>FAQ</a
+				>
+				<a
+					href="https://ig.me/m/zeroplay.tv"
+					target="_blank"
+					class="block px-3 py-2 text-primary-400 transition-colors hover:text-primary-500"
+					>Contactar</a
+				>
+			</div>
+		</div>
+	</nav>
 </header>
+
+<script>
+	const mobileMenuButton = document.getElementById("mobile-menu-button")
+	const mobileMenu = document.getElementById("mobile-menu")
+
+	mobileMenuButton?.addEventListener("click", () => {
+		mobileMenu?.classList.toggle("hidden")
+	})
+
+	const mobileLinks = mobileMenu?.querySelectorAll("a")
+	mobileLinks?.forEach((link) => {
+		link.addEventListener("click", () => {
+			mobileMenu?.classList.add("hidden")
+		})
+	})
+</script>

@@ -1,47 +1,74 @@
 ---
-import LinkedIn from "../assets/linkedin.svg"
-import Twitter from "../assets/twitter.svg"
+const currentYear = new Date().getFullYear()
+
+const links = {
+	legal: [
+		{ name: "Términos y Condiciones", href: "#" },
+		{ name: "Política de Privacidad", href: "#" },
+		{ name: "Política de Cookies", href: "#" },
+	],
+	social: [
+		{ name: "Instagram", href: "https://www.instagram.com/zeroplay.tv/", icon: "instagram" },
+	],
+}
 ---
 
-<footer class="py-10 bg-white">
-	<div class="container row px-8 rounded-[50px]">
-		<div class="one-half column">
-			<div class="flex">
-				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">About</a>
-				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">Help Center</a>
-				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">Privacy</a>
-				<a href="/" class="text-[1.8rem] text-[#222] no-underline pr-5">Terms</a>
+<footer class="mt-20 border-t border-white/10">
+	<div class="mx-auto max-w-7xl px-4 py-12">
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+			<!-- Logo y descripción -->
+			<div class="md:col-span-2">
+				<h2 class="text-2xl font-bold text-white">
+					Zero<span class="text-primary-500">Play</span>
+				</h2>
+				<p class="mt-4 max-w-md text-white/80">
+					Disfruta del mejor entretenimiento en streaming con calidad premium y contenido
+					actualizado diariamente.
+				</p>
 			</div>
-		</div>
-		<div class="one-half column">
-			<div class="float-right">
-				<div class="flex">
-					<p class="text-[1.8rem] text-[#222]">© Idol 2023</p>
-					<a href="/" class="pl-5"
-						><img src={Twitter.src} alt="Twitter icon" class="w-7 md:w-5" /></a
-					>
-					<a href="/" class="pl-5"
-						><img src={LinkedIn.src} alt="Linkedin icon" class="w-7 md:w-5" /></a
-					>
+
+			<!-- Enlaces legales -->
+			<div>
+				<h3 class="mb-4 text-lg font-semibold text-white">Legal</h3>
+				<ul class="space-y-2">
+					{
+						links.legal.map((link) => (
+							<li>
+								<a href={link.href} class="text-white/80 transition-colors hover:text-white">
+									{link.name}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<!-- Redes sociales -->
+			<div>
+				<h3 class="mb-4 text-lg font-semibold text-white">Síguenos</h3>
+				<div class="flex space-x-4">
+					{
+						links.social.map((link) => (
+							<a
+								href={link.href}
+								target="_blank"
+								class="text-white/80 transition-colors hover:text-white"
+								aria-label={link.name}
+							>
+								<span class="sr-only">{link.name}</span>
+								<i class={`fab fa-${link.icon} text-xl`} />
+							</a>
+						))
+					}
 				</div>
 			</div>
 		</div>
+
+		<!-- Copyright -->
+		<div class="mt-8 border-t border-white/10 pt-8">
+			<p class="text-center text-white/60">
+				© {currentYear} ZeroPlay. Todos los derechos reservados.
+			</p>
+		</div>
 	</div>
 </footer>
-
-<style>
-	@media (max-width: 700px) {
-		.flex {
-			justify-content: center;
-		}
-		.column {
-			padding: 10px 0;
-		}
-		.float-right {
-			float: none;
-		}
-		.text-\[1\.8rem\] {
-			font-size: 1.5rem;
-		}
-	}
-</style>

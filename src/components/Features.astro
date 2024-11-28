@@ -1,0 +1,43 @@
+---
+const features = [
+	{
+		title: "Alta Calidad",
+		description:
+			"Disfruta de contenido en HD y 4K con una transmisión fluida y sin interrupciones.",
+		icon: "📺",
+	},
+	{
+		title: "Multi-dispositivo",
+		description: "Accede desde cualquier dispositivo: Smart TV, móvil, tablet o computadora.",
+		icon: "📱",
+	},
+	{
+		title: "Contenido VOD",
+		description: "Miles de películas y series bajo demanda actualizadas regularmente.",
+		icon: "🎬",
+	},
+	{
+		title: "Soporte 24/7",
+		description: "Asistencia técnica disponible las 24 horas, los 7 días de la semana.",
+		icon: "🛟",
+	},
+]
+---
+
+<section class="px-4 py-20">
+	<div class="mx-auto max-w-6xl">
+		<h2 class="mb-12 text-center text-3xl font-bold text-white md:text-4xl">¿Por qué elegirnos?</h2>
+
+		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+			{
+				features.map((feature) => (
+					<div class="glass rounded-xl p-6 text-center">
+						<div class="mb-4 text-4xl">{feature.icon}</div>
+						<h3 class="mb-2 text-xl font-semibold text-white">{feature.title}</h3>
+						<p class="text-white/80">{feature.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

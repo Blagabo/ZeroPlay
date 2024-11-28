@@ -1,20 +1,28 @@
 ---
-import Brief from "../components/Brief.astro"
-import Customers from "../components/Customers.astro"
-import Footer from "../components/Footer.astro"
-import Header from "../components/Header.astro"
-import Hero from "../components/Hero.astro"
-import Pricing from "../components/Pricing.astro"
-import Layout from "../layouts/Layout.astro"
+import ContentShowcase from "@components/ContentShowcase.astro"
+import FAQ from "@components/FAQ.astro"
+import Features from "@components/Features.astro"
+import Footer from "@components/Footer.astro"
+import Header from "@components/Header.astro"
+import Hero from "@components/Hero.astro"
+import PaymentMethods from "@components/PaymentMethods"
+import Pricing from "@components/Pricing.astro"
+import Layout from "@layouts/Layout.astro"
+import BackToTop from "@components/UI/BackToTop"
+import CompatibleDevices from "@components/CompatibleDevices.astro"
 ---
 
-<Layout title="ZeroPlay">
+<Layout>
 	<Header />
-	<Hero />
-	<Brief />
-	<Pricing />
-	<Customers />
+	<main>
+		<Hero />
+		<Features />
+		<CompatibleDevices />
+		<Pricing />
+		<PaymentMethods client:load />
+		<ContentShowcase />
+		<FAQ />
+	</main>
+	<BackToTop client:load />
 	<Footer />
 </Layout>
-
-<style></style>

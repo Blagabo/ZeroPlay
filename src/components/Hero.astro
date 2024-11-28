@@ -1,51 +1,29 @@
 ---
-import Bomb from "../assets/bomb.svg"
-import Folder from "../assets/folder.svg"
-import Gift from "../assets/gift.svg"
-import Mailbox from "../assets/mailbox.svg"
-import Savings from "../assets/savings.svg"
+
 ---
 
-<section class="py-[50px]">
-	<div class="container relative">
-		<div class="h-[500px]">
-			<div class="text-center">
-				<div class="max-w-[600px] mx-auto">
-					<h1 class="text-[4rem] font-bold my-5">
-						Automate your design process for creative freedom
-					</h1>
-					<p class="text-[1.8rem] my-5">
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat excepturi dignissimos
-						exercitationem nesciunt, quo quibusdam assums? Architecto, placeat libero.
-					</p>
-					<div class="max-w-[250px] mx-auto">
-						<a href="/" class="button button-primary w-full mb-[3px]">Start Trial — It's Free</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="p-[5px] rounded-[48px]">
-			<img src={Bomb.src} alt="Dynamite" class="absolute w-[160px] top-0 -left-[100px] md:block" />
-			<img
-				src={Mailbox.src}
-				alt="Mailbox"
-				class="absolute w-[160px] top-0 -right-[100px] md:block hidden"
-			/>
-			<img
-				src={Folder.src}
-				alt="Folder"
-				class="absolute w-[160px] top-[250px] left-0 md:block hidden"
-			/>
-			<img
-				src={Savings.src}
-				alt="Money"
-				class="absolute w-[160px] top-[250px] right-0 md:block hidden"
-			/>
-			<img
-				src={Gift.src}
-				alt="Gift"
-				class="absolute w-[160px] -bottom-[20px] left-1/2 transform -translate-x-1/2"
-			/>
-		</div>
+<section class="relative mt-16 flex min-h-screen items-center justify-center px-4 py-20">
+	<div class="glass z-10 mx-auto max-w-4xl rounded-2xl p-8 text-center md:p-12">
+		<h1 class="mb-6 text-4xl font-bold text-white md:text-6xl">
+			Bienvenido a
+			<span class="font-bold text-white">Zero<span class="text-primary-500">Play</span></span>
+		</h1>
+		<p class="mb-8 text-lg text-white/90 md:text-xl">
+			Disfruta de miles de canales y contenido bajo demanda en alta calidad, desde cualquier
+			dispositivo y en cualquier momento.
+		</p>
+		<a
+			href="/order"
+			data-astro-prefetch
+			class="glass m-2 inline-block rounded-lg px-8 py-4 font-semibold text-white transition-colors hover:bg-secondary-600"
+		>
+			Prueba Gratis
+		</a>
+		<a
+			href="#planes"
+			class="m-2 inline-block rounded-lg bg-secondary-500 px-8 py-4 font-semibold text-white transition-colors hover:bg-secondary-600"
+		>
+			Ver Planes
+		</a>
 	</div>
 </section>

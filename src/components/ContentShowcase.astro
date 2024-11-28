@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets"
+const content = {
+	channels: [
+		{ name: "ESPN", logo: "/images/channels/espn.webp" },
+		{ name: "Disney", logo: "/images/channels/disney.webp" },
+		{ name: "HBO", logo: "/images/channels/hbo.webp" },
+		{ name: "Fox Sports", logo: "/images/channels/foxsports.webp" },
+		{ name: "Netflix", logo: "/images/channels/netflix.webp" },
+		{ name: "Prime", logo: "/images/channels/prime.webp" },
+	],
+}
+---
+
+<section class="overflow-hidden px-4 py-12">
+	<div class="mx-auto max-w-7xl">
+		<h2 class="mb-12 text-center text-3xl font-bold md:text-4xl">
+			<span class="text-white">Todo el entretenimiento</span>
+			<span class="text-primary-500"> en un solo lugar</span>
+		</h2>
+
+		<!-- Canales -->
+		<div class="glass mb-12 rounded-xl p-8">
+			<h3 class="mb-6 text-2xl font-semibold text-white">Canales Premium</h3>
+			<div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
+				{
+					content.channels.map((channel) => (
+						<div class="glass flex h-24 w-44 items-center rounded-lg p-8 transition-transform hover:scale-105">
+							<Image
+								width={128}
+								height={64}
+								src={channel.logo}
+								alt={channel.name}
+								class="h-16 w-32 object-contain"
+								loading="lazy"
+							/>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>

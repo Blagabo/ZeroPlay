@@ -1,0 +1,48 @@
+---
+const faqs = [
+	{
+		question: "¿Qué es IPTV?",
+		answer:
+			"IPTV (Internet Protocol Television) es una forma moderna de ver televisión que utiliza tu conexión a Internet para transmitir contenido. A diferencia de la TV tradicional, no necesitas antenas ni cables, solo un dispositivo conectado a Internet, como una Smart TV, celular, computadora o decodificador..",
+	},
+	{
+		question: "¿En qué dispositivos puedo ver el contenido?",
+		answer:
+			"Puedes disfrutar de nuestro servicio en Smart TVs, smartphones, tablets, computadoras y dispositivos de streaming como Roku, Fire TV Stick o Android TV Box.",
+	},
+	{
+		question: "¿Ofrecen periodo de prueba?",
+		answer:
+			"Sí, ofrecemos un periodo de prueba de 24 horas para que puedas evaluar nuestro servicio antes de suscribirte.",
+	},
+	{
+		question: "¿Cómo es el proceso de instalación?",
+		answer:
+			"El proceso es muy sencillo. Una vez realizada la suscripción, recibirás las credenciales y guías de instalación para configurar el servicio en tus dispositivos.",
+	},
+	{
+		question: "¿Necesito una velocidad específica de internet?",
+		answer:
+			"Recomendamos una conexión de al menos 10 Mbps para contenido HD y 25 Mbps para contenido 4K para una experiencia óptima.",
+	},
+]
+---
+
+<section id="faq" class="px-4 py-20">
+	<div class="mx-auto max-w-4xl">
+		<h2 class="mb-12 text-center text-3xl font-bold text-white md:text-4xl">
+			Preguntas Frecuentes
+		</h2>
+
+		<div class="space-y-6">
+			{
+				faqs.map((faq) => (
+					<div class="glass rounded-xl p-6">
+						<h3 class="mb-3 text-xl font-semibold text-white">{faq.question}</h3>
+						<p class="text-white/80">{faq.answer}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

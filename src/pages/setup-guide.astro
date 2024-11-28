@@ -1,0 +1,144 @@
+---
+import Footer from "@components/Footer.astro"
+import Header from "@components/Header.astro"
+import Layout from "@layouts/Layout.astro"
+import BackToTop from "@components/UI/BackToTop"
+
+const requirements = [
+	"Conexión a Internet estable (mínimo 10 Mbps recomendado)",
+	"Dispositivo compatible (Smart TV, smartphone, tablet, etc.)",
+	"Aplicación IPTV instalada según tu dispositivo",
+	"Credenciales de acceso (usuario y contraseña)",
+]
+
+const devices = [
+	{
+		title: "Smart TV",
+		guides: [
+			{
+				name: "Samsung / LG Smart TV",
+				steps: [
+					'Descarga "Smart IPTV" desde la tienda de aplicaciones',
+					"Abre la aplicación",
+					"Ingresa el código MAC que aparece en pantalla",
+					"Envíanos el código MAC para activar tu servicio",
+					"Espera la confirmación de activación",
+					"¡Listo! Disfruta de tu contenido",
+				],
+			},
+			{
+				name: "Android TV",
+				steps: [
+					'Descarga "TiviMate" desde Google Play Store',
+					"Abre la aplicación",
+					'Selecciona "Agregar Lista de Reproducción"',
+					"Ingresa la URL y las credenciales proporcionadas",
+					"¡Listo! Ya puedes disfrutar del contenido",
+				],
+			},
+		],
+	},
+	{
+		title: "Dispositivos Móviles",
+		guides: [
+			{
+				name: "Android",
+				steps: [
+					'Descarga "IPTV Smarters Pro" desde Google Play Store',
+					"Abre la aplicación",
+					'Selecciona "Login with Xtream Codes"',
+					"Ingresa las credenciales proporcionadas",
+					"¡Listo! Disfruta de tu contenido",
+				],
+			},
+			{
+				name: "iOS (iPhone/iPad)",
+				steps: [
+					'Descarga "IPTV Smarters Player" desde App Store',
+					"Abre la aplicación",
+					'Selecciona "Login with Xtream Codes"',
+					"Ingresa las credenciales proporcionadas",
+					"¡Listo! Ya puedes disfrutar del contenido",
+				],
+			},
+		],
+	},
+	{
+		title: "Fire TV Stick",
+		guides: [
+			{
+				name: "Fire TV Stick",
+				steps: [
+					'Descarga "IPTV Smarters Pro" desde Amazon App Store',
+					"Abre la aplicación",
+					'Selecciona "Login with Xtream Codes"',
+					"Ingresa las credenciales proporcionadas",
+					"¡Listo! Disfruta de tu contenido",
+				],
+			},
+		],
+	},
+]
+---
+
+<Layout title="Guía de Instalación - ZeroPlay">
+	<Header />
+	<main class="min-h-screen px-4 pt-32">
+		<div class="mx-auto max-w-4xl">
+			<div class="glass rounded-2xl p-8 md:p-12">
+				<h1 class="mb-8 text-center text-3xl font-bold text-white md:text-4xl">
+					Guía de Instalación
+				</h1>
+
+				<!-- Requisitos -->
+				<div class="mb-12">
+					<h2 class="mb-6 text-2xl font-semibold text-white">Requisitos Previos</h2>
+					<ul class="list-inside list-disc space-y-3 text-white/90">
+						{requirements.map((requirement) => <li>{requirement}</li>)}
+					</ul>
+				</div>
+
+				<!-- Guías de Instalación -->
+				<div class="space-y-12">
+					{
+						devices.map((device) => (
+							<section class="border-t border-white/10 pt-8">
+								<h2 class="mb-6 text-2xl font-semibold text-white">{device.title}</h2>
+								<div class="space-y-6">
+									{device.guides.map((guide) => (
+										<div class="rounded-lg bg-white/5 p-6">
+											<h3 class="mb-4 text-xl font-medium text-white">{guide.name}</h3>
+											<ol class="list-inside list-decimal space-y-3 text-white/90">
+												{guide.steps.map((step) => (
+													<li>{step}</li>
+												))}
+											</ol>
+										</div>
+									))}
+								</div>
+							</section>
+						))
+					}
+
+					<!-- Soporte -->
+					<section class="border-t border-white/10 pt-8">
+						<h2 class="mb-4 text-2xl font-semibold text-white">¿Necesitas ayuda?</h2>
+						<p class="mb-6 text-white/90">
+							Si tienes problemas con la instalación o necesitas asistencia, no dudes en
+							contactarnos. Nuestro equipo de soporte está disponible 24/7 para ayudarte.
+						</p>
+						<a
+							href="https://ig.me/m/zeroplay.tv"
+							target="_blank"
+							class="inline-block rounded-lg bg-primary-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-600"
+						>
+							Contactar Soporte
+						</a>
+					</section>
+				</div>
+			</div>
+		</div>
+	</main>
+	<BackToTop client:load />
+	<Footer />
+</Layout>

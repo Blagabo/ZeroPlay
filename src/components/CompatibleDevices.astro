@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets"
+
+const devices = [
+	{
+		name: "Fire TV",
+		logo: "/images/devices/firetv.webp",
+	},
+	{
+		name: "Android TV",
+		logo: "/images/devices/androidtv.webp",
+	},
+	{
+		name: "Apple TV",
+		logo: "/images/devices/appletv.webp",
+	},
+	{
+		name: "Roku",
+		logo: "/images/devices/roku.webp",
+	},
+	{
+		name: "LG webOS",
+		logo: "/images/devices/lg.webp",
+	},
+	{
+		name: "Windows",
+		logo: "/images/devices/windows.webp",
+	},
+	{
+		name: "Android",
+		logo: "/images/devices/android.webp",
+	},
+	{
+		name: "iphone",
+		logo: "/images/devices/iphone.webp",
+	},
+]
+---
+
+<section class="overflow-hidden px-4 py-12">
+	<div class="mx-auto max-w-7xl">
+		<h2 class="mb-12 text-center text-3xl font-bold md:text-4xl">
+			<span class="text-white">Compatible con</span>
+			<span class="text-primary-500"> todos los dispositivos</span>
+		</h2>
+		<div class="glass mb-12 rounded-xl p-8">
+			<div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-8">
+				{
+					devices.map((device) => (
+						<div class="flex h-24 w-32 items-center rounded-lg bg-white/5 p-4 transition-transform hover:scale-105">
+							<Image
+								width={128}
+								height={64}
+								src={device.logo}
+								alt={device.name}
+								class="h-16 w-32 object-contain"
+								loading="lazy"
+							/>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
