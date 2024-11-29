@@ -6,12 +6,14 @@ import tailwind from "@astrojs/tailwind"
 
 import react from "@astrojs/react"
 
-import cloudflare from "@astrojs/cloudflare";
+import cloudflare from "@astrojs/cloudflare"
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
-  prefetch: true,
-  integrations: [tailwind(), react()],
-  adapter: cloudflare(),
+	prefetch: true,
+	integrations: [tailwind(), react()],
+	output: "server",
+	adapter: cloudflare({
+		imageService: "cloudflare",
+	}),
 })
