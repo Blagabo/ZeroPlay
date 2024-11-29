@@ -1,8 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro"
-import Header from "../components/Header.astro"
-import Footer from "../components/Footer.astro"
-import { supabase } from "../lib/supabase"
+import Layout from "@layouts/Layout.astro"
+import Header from "@components/Header.astro"
+import Footer from "@components/Footer.astro"
+import { supabase } from "@lib/supabase"
+import { getUserSubscription } from "@components/supabase/GetUserSubscription"
+import type { UserProfile } from "../types/supabase"
 
 const { cookies, redirect } = Astro
 
@@ -13,18 +15,52 @@ if (!accessToken || !refreshToken) {
 	return redirect("/signin")
 }
 
-const { data, error } = await supabase.auth.setSession({
+// Restaurar la sesión del usuario
+const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
 	refresh_token: refreshToken.value,
 	access_token: accessToken.value,
 })
 
-if (error) {
+if (sessionError) {
 	cookies.delete("sb-access-token", { path: "/" })
 	cookies.delete("sb-refresh-token", { path: "/" })
 	return redirect("/signin")
 }
 
-const email = data?.user?.email
+// Obtener el ID del usuario autenticado
+const userId = sessionData?.user?.id
+if (!userId) {
+	return redirect("/signin")
+}
+
+const { data: userData } = await supabase.auth.getUser()
+
+const user: UserProfile = {
+	id: userData.user?.id ?? "",
+	role: "authenticated",
+	email: userData.user?.email ?? "",
+	phone: userData.user?.phone ?? "",
+	email_verified: userData.user?.user_metadata?.email_verified,
+	phone_verified: userData.user?.user_metadata?.phone_verified,
+	created_at: userData.user?.created_at ?? "",
+}
+
+// Obtener datos del usuario y suscripción activa
+const userAndSubscription = await getUserSubscription(userId)
+
+if (!userAndSubscription) {
+	return redirect("/error") // Redirigir a una página de error si no se encuentran datos
+}
+
+const { subscription } = userAndSubscription
+
+const plans = {
+	1: "1 Dispositivo",
+	2: "2 Dispositivos",
+	3: "3 Dispositivos",
+}
+
+const plan_id: keyof typeof plans = subscription?.plan_id ?? null
 ---
 
 <Layout title="Panel de Control - ZeroPlay">
@@ -35,7 +71,7 @@ const email = data?.user?.email
 				<div class="mb-8 flex items-center justify-between">
 					<div>
 						<h1 class="text-3xl font-bold text-white">Panel de Control</h1>
-						<p class="mt-2 text-white/80">Bienvenido, {email}</p>
+						<p class="mt-2 text-white/80">Bienvenido {user?.email}</p>
 					</div>
 					<form action="/api/auth/signout">
 						<button
@@ -47,30 +83,52 @@ const email = data?.user?.email
 					</form>
 				</div>
 
-				<div class="grid gap-6 md:grid-cols-2">
-					<div class="glass rounded-xl p-6">
-						<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
-						<div class="flex items-center space-x-2">
-							<div class="h-3 w-3 rounded-full bg-green-500"></div>
-							<span class="text-white/90">Activo</span>
+				{
+					!subscription || !subscription.is_active ? (
+						<div class="glass rounded-xl p-6 text-center">
+							<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
+							<p class="text-white/90">No tienes una suscripción activa.</p>
 						</div>
-					</div>
+					) : (
+						<div class="grid gap-6 md:grid-cols-2">
+							<div class="glass rounded-xl p-6">
+								<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
+								<div class="flex items-center space-x-2">
+									<div
+										id="pointStatus"
+										class={`h-3 w-3 rounded-full ${
+											subscription.is_active ? "bg-green-500" : "bg-red-500"
+										}`}
+									/>
+									<span class="text-white/90">
+										{subscription.is_active ? "Activo" : "Inactivo"}
+									</span>
+								</div>
+							</div>
 
-					<div class="glass rounded-xl p-6">
-						<h2 class="mb-4 text-xl font-semibold text-white">Plan Actual</h2>
-						<p class="text-white/90">Premium - 2 Dispositivos</p>
-					</div>
+							<div class="glass rounded-xl p-6">
+								<h2 class="mb-4 text-xl font-semibold text-white">Plan Actual</h2>
+								<p class="text-white/90">Plan: {plans[plan_id] ?? "N/A"}</p>
+							</div>
 
-					<div class="glass rounded-xl p-6">
-						<h2 class="mb-4 text-xl font-semibold text-white">Dispositivos Conectados</h2>
-						<p class="text-white/90">1 de 2 dispositivos en uso</p>
-					</div>
+							<div class="glass rounded-xl p-6">
+								<h2 class="mb-4 text-xl font-semibold text-white">Dispositivos Conectados</h2>
+								<p class="text-white/90">1 de 2 dispositivos en uso</p>
+							</div>
 
-					<div class="glass rounded-xl p-6">
-						<h2 class="mb-4 text-xl font-semibold text-white">Próxima Facturación</h2>
-						<p class="text-white/90">15 de Marzo, 2024</p>
-					</div>
-				</div>
+							<div class="glass rounded-xl p-6">
+								<h2 class="mb-4 text-xl font-semibold text-white">Próxima Facturación</h2>
+								<p class="text-white/90">
+									{new Date(subscription.end_date).toLocaleDateString("es-ES", {
+										year: "numeric",
+										month: "long",
+										day: "numeric",
+									})}
+								</p>
+							</div>
+						</div>
+					)
+				}
 
 				<div class="mt-8 rounded-xl bg-primary-500/10 p-6">
 					<h2 class="mb-4 text-xl font-semibold text-white">¿Necesitas ayuda?</h2>
