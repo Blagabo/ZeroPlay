@@ -8,9 +8,9 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ href, children, className }) => {
 	return (
-		<button className={`${className}`}>
-			<a href={href}>{children}</a>
-		</button>
+		<a href={href}>
+			<button className={`${className}`}>{children}</button>
+		</a>
 	)
 }
 
