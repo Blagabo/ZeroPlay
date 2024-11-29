@@ -6,7 +6,7 @@ import Footer from "@components/Footer.astro"
 import Header from "@components/Header.astro"
 import Hero from "@components/Hero.astro"
 import PaymentMethods from "@components/PaymentMethods"
-import Pricing from "@components/Pricing.astro"
+import Pricing from "@components/Pricing"
 import Layout from "@layouts/Layout.astro"
 import BackToTop from "@components/UI/BackToTop"
 import CompatibleDevices from "@components/CompatibleDevices.astro"
@@ -18,7 +18,7 @@ import CompatibleDevices from "@components/CompatibleDevices.astro"
 		<Hero />
 		<Features />
 		<CompatibleDevices />
-		<Pricing />
+		<Pricing client:load />
 		<PaymentMethods client:load />
 		<ContentShowcase />
 		<FAQ />

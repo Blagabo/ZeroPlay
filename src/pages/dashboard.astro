@@ -1,0 +1,92 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+import { supabase } from "../lib/supabase"
+
+const { cookies, redirect } = Astro
+
+const accessToken = cookies.get("sb-access-token")
+const refreshToken = cookies.get("sb-refresh-token")
+
+if (!accessToken || !refreshToken) {
+	return redirect("/signin")
+}
+
+const { data, error } = await supabase.auth.setSession({
+	refresh_token: refreshToken.value,
+	access_token: accessToken.value,
+})
+
+if (error) {
+	cookies.delete("sb-access-token", { path: "/" })
+	cookies.delete("sb-refresh-token", { path: "/" })
+	return redirect("/signin")
+}
+
+const email = data?.user?.email
+---
+
+<Layout title="Panel de Control - ZeroPlay">
+	<Header />
+	<main class="min-h-screen px-4 pt-32">
+		<div class="mx-auto max-w-4xl">
+			<div class="glass rounded-2xl p-8">
+				<div class="mb-8 flex items-center justify-between">
+					<div>
+						<h1 class="text-3xl font-bold text-white">Panel de Control</h1>
+						<p class="mt-2 text-white/80">Bienvenido, {email}</p>
+					</div>
+					<form action="/api/auth/signout">
+						<button
+							type="submit"
+							class="rounded-lg bg-white/10 px-4 py-2 font-semibold text-white transition-colors hover:bg-white/20"
+						>
+							Cerrar sesión
+						</button>
+					</form>
+				</div>
+
+				<div class="grid gap-6 md:grid-cols-2">
+					<div class="glass rounded-xl p-6">
+						<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
+						<div class="flex items-center space-x-2">
+							<div class="h-3 w-3 rounded-full bg-green-500"></div>
+							<span class="text-white/90">Activo</span>
+						</div>
+					</div>
+
+					<div class="glass rounded-xl p-6">
+						<h2 class="mb-4 text-xl font-semibold text-white">Plan Actual</h2>
+						<p class="text-white/90">Premium - 2 Dispositivos</p>
+					</div>
+
+					<div class="glass rounded-xl p-6">
+						<h2 class="mb-4 text-xl font-semibold text-white">Dispositivos Conectados</h2>
+						<p class="text-white/90">1 de 2 dispositivos en uso</p>
+					</div>
+
+					<div class="glass rounded-xl p-6">
+						<h2 class="mb-4 text-xl font-semibold text-white">Próxima Facturación</h2>
+						<p class="text-white/90">15 de Marzo, 2024</p>
+					</div>
+				</div>
+
+				<div class="mt-8 rounded-xl bg-primary-500/10 p-6">
+					<h2 class="mb-4 text-xl font-semibold text-white">¿Necesitas ayuda?</h2>
+					<p class="mb-4 text-white/90">
+						Nuestro equipo de soporte está disponible 24/7 para ayudarte con cualquier consulta.
+					</p>
+					<a
+						href="https://ig.me/m/zeroplay.tv"
+						target="_blank"
+						class="inline-block rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+					>
+						Contactar Soporte
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+	<Footer />
+</Layout>
