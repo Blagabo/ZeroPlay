@@ -1,5 +1,10 @@
 ---
+import { supabase } from "@lib/supabase"
 
+const {
+	data: { user },
+} = await supabase.auth.getUser()
+const isLogin = !!user
 ---
 
 <header class="fixed left-0 right-0 top-0 z-50">
@@ -8,30 +13,43 @@
 			<div class="flex h-16 items-center justify-between">
 				<div class="flex-shrink-0">
 					<a href="/" class="flex items-center">
-						<span class="text-4xl font-bold text-white"
-							>Zero<span class="text-primary-500">Play</span></span
-						>
+						<span class="text-4xl font-bold text-white">
+							Zero<span class="text-primary-500">Play</span>
+						</span>
 					</a>
 				</div>
 
 				<div class="hidden md:block">
 					<div class="ml-10 flex items-center space-x-8">
-						<a href="/#planes" class="text-white/80 transition-colors hover:text-white">Planes</a>
-						<a href="/setup-guide" class="text-white/80 transition-colors hover:text-white"
-							>Guia de Instalacion</a
-						>
-						<a href="/#faq" class="text-white/80 transition-colors hover:text-white">FAQ</a>
+						<a href="/#planes" class="text-white/80 transition-colors hover:text-white"> Planes </a>
+						<a href="/setup-guide" class="text-white/80 transition-colors hover:text-white">
+							Guia de Instalacion
+						</a>
+						<a href="/#faq" class="text-white/80 transition-colors hover:text-white"> FAQ </a>
 						<a
 							href="https://ig.me/m/zeroplay.tv"
 							target="_blank"
-							class="text-white/80 transition-colors hover:text-white">Contactar</a
+							class="text-white/80 transition-colors hover:text-white"
 						>
-						<a
-							href="/dashboard"
-							class="rounded-lg bg-primary-500 px-4 py-2 font-medium text-dark-500 transition-colors hover:bg-primary-600"
-						>
-							Dashboard
+							Contactar
 						</a>
+						{
+							isLogin ? (
+								<a
+									href="/dashboard"
+									class="rounded-lg bg-primary-500 px-4 py-2 font-medium text-dark-500 transition-colors hover:bg-primary-600"
+								>
+									Dashboard
+								</a>
+							) : (
+								<a
+									href="/signin"
+									class="rounded-lg bg-primary-500 px-4 py-2 font-medium text-dark-500 transition-colors hover:bg-primary-600"
+								>
+									Login
+								</a>
+							)
+						}
 					</div>
 				</div>
 
@@ -54,27 +72,31 @@
 
 		<div id="mobile-menu" class="hidden md:hidden">
 			<div class="glass space-y-1 border-t border-white/10 px-2 pb-3 pt-2">
-				<a href="/#planes" class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
-					>Planes</a
-				>
+				<a href="/#planes" class="block px-3 py-2 text-white/80 transition-colors hover:text-white">
+					Planes
+				</a>
 				<a
 					href="/setup-guide"
 					class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
-					>Guia de Instalacion</a
 				>
-				<a href="#faq" class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
-					>FAQ</a
-				>
+					Guia de Instalacion
+				</a>
+				<a href="#faq" class="block px-3 py-2 text-white/80 transition-colors hover:text-white">
+					FAQ
+				</a>
 				<a
 					href="https://ig.me/m/zeroplay.tv"
 					target="_blank"
-					class="block px-3 py-2 text-white/80 transition-colors hover:text-white">Contactar</a
+					class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
 				>
+					Contactar
+				</a>
 				<a
 					href="/dashboard"
 					class="block px-3 py-2 text-primary-400 transition-colors hover:text-primary-500"
-					>Dashboard</a
 				>
+					Dashboard
+				</a>
 			</div>
 		</div>
 	</nav>

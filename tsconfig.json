@@ -8,7 +8,8 @@
 			"@lib/*": ["src/lib/*"],
 			"@types/*": ["src/types/*"],
 			"@images/*": ["src/images/*"],
-			"@logos/*": ["src/logos/*"]
+			"@logos/*": ["src/logos/*"],
+			"@utils/*": ["src/utils/*"]
 		}
 	}
 }

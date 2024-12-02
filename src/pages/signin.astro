@@ -2,15 +2,37 @@
 import Layout from "../layouts/Layout.astro"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
+import { AUTH_ERRORS } from "@utils/constants/errors"
+import { supabase } from "@lib/supabase"
 
 const { cookies, redirect } = Astro
 
+// Verificar si ya hay una sesión válida
 const accessToken = cookies.get("sb-access-token")
 const refreshToken = cookies.get("sb-refresh-token")
 
 if (accessToken && refreshToken) {
-	return redirect("/dashboard")
+	try {
+		const { data, error } = await supabase.auth.setSession({
+			refresh_token: refreshToken.value,
+			access_token: accessToken.value,
+		})
+
+		if (data.session) {
+			return redirect("/dashboard")
+		}
+
+		if (error) {
+			// Si hay error, limpiar las cookies
+			cookies.delete("sb-access-token", { path: "/" })
+			cookies.delete("sb-refresh-token", { path: "/" })
+		}
+	} catch (error) {
+		console.error("Error al verificar sesión:", error)
+	}
 }
+
+const error = Astro.url.searchParams.get("error")
 ---
 
 <Layout title="Iniciar sesión - ZeroPlay">
@@ -20,15 +42,30 @@ if (accessToken && refreshToken) {
 			<div class="glass rounded-2xl p-8">
 				<h1 class="mb-6 text-center text-3xl font-bold text-white">Iniciar sesión</h1>
 				<p class="mb-8 text-center text-white/80">
-					¿Nuevo aquí? <a href="/register" class="text-primary-500 hover:text-primary-400"
-						>Crea una cuenta</a
-					>
+					¿Nuevo aquí? <a href="/register" class="text-primary-500 hover:text-primary-400">
+						Crea una cuenta
+					</a>
 				</p>
+
+				{
+					error && (
+						<div class="mb-6 rounded-lg bg-red-500/10 p-4 text-center text-red-500">
+							{error === "invalid_credentials"
+								? AUTH_ERRORS.INVALID_CREDENTIALS
+								: error === "missing_fields"
+									? AUTH_ERRORS.MISSING_FIELDS
+									: error === "session_expired"
+										? AUTH_ERRORS.SESSION_EXPIRED
+										: AUTH_ERRORS.GENERIC_ERROR}
+						</div>
+					)
+				}
+
 				<form action="/api/auth/signin" method="post" class="space-y-6">
 					<div>
-						<label for="email" class="mb-2 block text-sm font-medium text-white"
-							>Correo electrónico</label
-						>
+						<label for="email" class="mb-2 block text-sm font-medium text-white">
+							Correo electrónico
+						</label>
 						<input
 							type="email"
 							name="email"
@@ -39,9 +76,9 @@ if (accessToken && refreshToken) {
 						/>
 					</div>
 					<div>
-						<label for="password" class="mb-2 block text-sm font-medium text-white"
-							>Contraseña</label
-						>
+						<label for="password" class="mb-2 block text-sm font-medium text-white">
+							Contraseña
+						</label>
 						<input
 							type="password"
 							name="password"
@@ -55,7 +92,9 @@ if (accessToken && refreshToken) {
 						type="submit"
 						class="w-full rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
 					>
-						Iniciar sesión
+						<span class="flex items-center justify-center space-x-2">
+							<span>Iniciar sesión</span>
+						</span>
 					</button>
 				</form>
 			</div>
