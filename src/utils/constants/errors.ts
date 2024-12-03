@@ -3,6 +3,8 @@ export const AUTH_ERRORS = {
 	MISSING_FIELDS: "Por favor, completa todos los campos requeridos.",
 	GENERIC_ERROR: "Ha ocurrido un error. Por favor, intenta nuevamente.",
 	SESSION_EXPIRED: "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.",
+	EMAIL_NOT_CONFIRMED: "Por favor, confirma tu correo electrónico antes de iniciar sesión.",
+	UNAUTHORIZED: "No tienes permisos para acceder a esta sección.",
 } as const
 
 export const VALIDATION_ERRORS = {
