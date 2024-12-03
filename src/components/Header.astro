@@ -13,23 +13,36 @@ const isLogin = !!user
 			<div class="flex h-16 items-center justify-between">
 				<div class="flex-shrink-0">
 					<a href="/" class="flex items-center">
-						<span class="text-4xl font-bold text-white">
+						<span class="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
 							Zero<span class="text-primary-500">Play</span>
 						</span>
 					</a>
 				</div>
 
 				<div class="hidden md:block">
-					<div class="ml-10 flex items-center space-x-8">
-						<a href="/#planes" class="text-white/80 transition-colors hover:text-white"> Planes </a>
-						<a href="/setup-guide" class="text-white/80 transition-colors hover:text-white">
+					<div class="ml-4 flex items-center space-x-4 lg:ml-10 lg:space-x-8">
+						<a
+							href="/#planes"
+							class="text-sm text-white/80 transition-colors hover:text-white lg:text-base"
+						>
+							Planes
+						</a>
+						<a
+							href="/setup-guide"
+							class="text-sm text-white/80 transition-colors hover:text-white lg:text-base"
+						>
 							Guia de Instalacion
 						</a>
-						<a href="/#faq" class="text-white/80 transition-colors hover:text-white"> FAQ </a>
+						<a
+							href="/#faq"
+							class="text-sm text-white/80 transition-colors hover:text-white lg:text-base"
+						>
+							FAQ
+						</a>
 						<a
 							href="https://ig.me/m/zeroplay.tv"
 							target="_blank"
-							class="text-white/80 transition-colors hover:text-white"
+							class="text-sm text-white/80 transition-colors hover:text-white lg:text-base"
 						>
 							Contactar
 						</a>
@@ -37,14 +50,14 @@ const isLogin = !!user
 							isLogin ? (
 								<a
 									href="/dashboard"
-									class="rounded-lg bg-primary-500 px-4 py-2 font-medium text-dark-500 transition-colors hover:bg-primary-600"
+									class="rounded-lg bg-primary-500 px-3 py-2 text-sm font-medium text-dark-500 transition-colors hover:bg-primary-600 lg:px-4 lg:text-base"
 								>
 									Dashboard
 								</a>
 							) : (
 								<a
 									href="/signin"
-									class="rounded-lg bg-primary-500 px-4 py-2 font-medium text-dark-500 transition-colors hover:bg-primary-600"
+									class="rounded-lg bg-primary-500 px-3 py-2 text-sm font-medium text-dark-500 transition-colors hover:bg-primary-600 lg:px-4 lg:text-base"
 								>
 									Login
 								</a>
@@ -57,6 +70,7 @@ const isLogin = !!user
 					<button
 						id="mobile-menu-button"
 						class="text-white transition-colors hover:text-primary-400"
+						aria-label="Abrir menú"
 					>
 						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path
@@ -71,32 +85,49 @@ const isLogin = !!user
 		</div>
 
 		<div id="mobile-menu" class="hidden md:hidden">
-			<div class="glass space-y-1 border-t border-white/10 px-2 pb-3 pt-2">
-				<a href="/#planes" class="block px-3 py-2 text-white/80 transition-colors hover:text-white">
+			<div class="glass space-y-2 border-t border-white/10 px-4 py-3">
+				<a
+					href="/#planes"
+					class="block px-3 py-2 text-base text-white/80 transition-colors hover:text-white"
+				>
 					Planes
 				</a>
 				<a
 					href="/setup-guide"
-					class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
+					class="block px-3 py-2 text-base text-white/80 transition-colors hover:text-white"
 				>
 					Guia de Instalacion
 				</a>
-				<a href="#faq" class="block px-3 py-2 text-white/80 transition-colors hover:text-white">
+				<a
+					href="#faq"
+					class="block px-3 py-2 text-base text-white/80 transition-colors hover:text-white"
+				>
 					FAQ
 				</a>
 				<a
 					href="https://ig.me/m/zeroplay.tv"
 					target="_blank"
-					class="block px-3 py-2 text-white/80 transition-colors hover:text-white"
+					class="block px-3 py-2 text-base text-white/80 transition-colors hover:text-white"
 				>
 					Contactar
 				</a>
-				<a
-					href="/dashboard"
-					class="block px-3 py-2 text-primary-400 transition-colors hover:text-primary-500"
-				>
-					Dashboard
-				</a>
+				{
+					isLogin ? (
+						<a
+							href="/dashboard"
+							class="block px-3 py-2 text-base text-primary-400 transition-colors hover:text-primary-500"
+						>
+							Dashboard
+						</a>
+					) : (
+						<a
+							href="/signin"
+							class="block px-3 py-2 text-base text-primary-400 transition-colors hover:text-primary-500"
+						>
+							Login
+						</a>
+					)
+				}
 			</div>
 		</div>
 	</nav>

@@ -37,23 +37,23 @@ const devices = [
 ]
 ---
 
-<section class="overflow-hidden px-4 py-12">
+<section class="overflow-hidden px-4 py-12 sm:py-20">
 	<div class="mx-auto max-w-7xl">
-		<h2 class="mb-12 text-center text-3xl font-bold md:text-4xl">
+		<h2 class="mb-8 text-center text-2xl font-bold sm:mb-12 sm:text-3xl md:text-4xl">
 			<span class="text-white">Compatible con</span>
 			<span class="text-primary-500"> todos los dispositivos</span>
 		</h2>
-		<div class="glass mb-12 rounded-xl p-8">
-			<div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-8">
+		<div class="glass rounded-lg p-4 sm:rounded-xl sm:p-6 md:p-8">
+			<div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-8 lg:gap-6">
 				{
 					devices.map((device) => (
-						<div class="flex h-24 w-32 items-center rounded-lg bg-white/5 p-4 transition-transform hover:scale-105">
+						<div class="flex h-16 items-center justify-center rounded-lg bg-white/5 p-2 transition-transform hover:scale-105 sm:h-20 md:h-24 md:p-4">
 							<Image
 								width={128}
 								height={64}
 								src={device.logo}
 								alt={device.name}
-								class="h-16 w-32 object-contain"
+								class="h-10 w-20 object-contain sm:h-12 sm:w-24 md:h-16 md:w-32"
 								loading="lazy"
 							/>
 						</div>

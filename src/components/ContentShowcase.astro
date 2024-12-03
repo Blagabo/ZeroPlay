@@ -12,26 +12,26 @@ const content = {
 }
 ---
 
-<section class="overflow-hidden px-4 py-12">
+<section class="overflow-hidden px-4 py-12 sm:py-20">
 	<div class="mx-auto max-w-7xl">
-		<h2 class="mb-12 text-center text-3xl font-bold md:text-4xl">
+		<h2 class="mb-8 text-center text-2xl font-bold sm:mb-12 sm:text-3xl md:text-4xl">
 			<span class="text-white">Todo el entretenimiento</span>
 			<span class="text-primary-500"> en un solo lugar</span>
 		</h2>
 
 		<!-- Canales -->
-		<div class="glass mb-12 rounded-xl p-8">
-			<h3 class="mb-6 text-2xl font-semibold text-white">Canales Premium</h3>
-			<div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
+		<div class="glass rounded-lg p-4 sm:rounded-xl sm:p-6 md:p-8">
+			<h3 class="mb-4 text-lg font-semibold text-white sm:mb-6 sm:text-xl">Canales Premium</h3>
+			<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-6 md:gap-6">
 				{
 					content.channels.map((channel) => (
-						<div class="glass flex h-24 w-44 items-center rounded-lg p-8 transition-transform hover:scale-105">
+						<div class="glass flex h-16 items-center justify-center rounded-lg p-2 transition-transform hover:scale-105 sm:h-20 md:h-24 md:p-4">
 							<Image
 								width={128}
 								height={64}
 								src={channel.logo}
 								alt={channel.name}
-								class="h-16 w-32 object-contain"
+								class="h-10 w-20 object-contain sm:h-12 sm:w-24 md:h-16 md:w-32"
 								loading="lazy"
 							/>
 						</div>

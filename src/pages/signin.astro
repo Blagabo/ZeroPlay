@@ -37,11 +37,13 @@ const error = Astro.url.searchParams.get("error")
 
 <Layout title="Iniciar sesión - ZeroPlay">
 	<Header />
-	<main class="min-h-screen px-4 pt-32">
-		<div class="mx-auto max-w-md">
-			<div class="glass rounded-2xl p-8">
-				<h1 class="mb-6 text-center text-3xl font-bold text-white">Iniciar sesión</h1>
-				<p class="mb-8 text-center text-white/80">
+	<main class="px-4 pt-20 sm:pt-32">
+		<div class="mx-auto max-w-md pt-10">
+			<div class="glass rounded-xl p-6 sm:rounded-2xl sm:p-8">
+				<h1 class="mb-4 text-center text-2xl font-bold text-white sm:mb-6 sm:text-3xl">
+					Iniciar sesión
+				</h1>
+				<p class="mb-6 text-center text-sm text-white/80 sm:mb-8 sm:text-base">
 					¿Nuevo aquí? <a href="/register" class="text-primary-500 hover:text-primary-400">
 						Crea una cuenta
 					</a>
@@ -49,7 +51,7 @@ const error = Astro.url.searchParams.get("error")
 
 				{
 					error && (
-						<div class="mb-6 rounded-lg bg-red-500/10 p-4 text-center text-red-500">
+						<div class="mb-6 rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-500 sm:p-4 sm:text-base">
 							{error === "invalid_credentials"
 								? AUTH_ERRORS.INVALID_CREDENTIALS
 								: error === "missing_fields"
@@ -61,9 +63,9 @@ const error = Astro.url.searchParams.get("error")
 					)
 				}
 
-				<form action="/api/auth/signin" method="post" class="space-y-6">
+				<form action="/api/auth/signin" method="post" class="space-y-4 sm:space-y-6">
 					<div>
-						<label for="email" class="mb-2 block text-sm font-medium text-white">
+						<label for="email" class="mb-1 block text-sm font-medium text-white sm:mb-2">
 							Correo electrónico
 						</label>
 						<input
@@ -71,12 +73,12 @@ const error = Astro.url.searchParams.get("error")
 							name="email"
 							id="email"
 							required
-							class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+							class="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 sm:px-4 sm:text-base"
 							placeholder="tu@email.com"
 						/>
 					</div>
 					<div>
-						<label for="password" class="mb-2 block text-sm font-medium text-white">
+						<label for="password" class="mb-1 block text-sm font-medium text-white sm:mb-2">
 							Contraseña
 						</label>
 						<input
@@ -84,13 +86,13 @@ const error = Astro.url.searchParams.get("error")
 							name="password"
 							id="password"
 							required
-							class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+							class="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 sm:px-4 sm:text-base"
 							placeholder="••••••••"
 						/>
 					</div>
 					<button
 						type="submit"
-						class="w-full rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+						class="w-full rounded-lg bg-primary-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-600 sm:py-3 sm:text-base"
 					>
 						<span class="flex items-center justify-center space-x-2">
 							<span>Iniciar sesión</span>
