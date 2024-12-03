@@ -5,10 +5,10 @@ interface ToastProps {
 	message: string
 	type: "success" | "error" | "info"
 	duration?: number
-	onClose: () => void
+	onClose?: () => void
 }
 
-export const Toast = ({ message, type, duration = 3000, onClose }: ToastProps) => {
+export const Toast = ({ message, type, duration = 3000, onClose = () => {} }: ToastProps) => {
 	const [isVisible, setIsVisible] = useState(true)
 
 	useEffect(() => {

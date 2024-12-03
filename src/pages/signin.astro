@@ -27,7 +27,6 @@ const error = Astro.url.searchParams.get("error")
 						client:load
 						message={AUTH_ERRORS[error as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.GENERIC_ERROR}
 						type="error"
-						onClose={() => {}}
 					/>
 				)
 			}
