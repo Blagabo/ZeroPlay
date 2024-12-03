@@ -1,0 +1,61 @@
+---
+interface Props {
+	subscription: {
+		is_active: boolean
+		end_date: string
+		plan_id: string
+	} | null
+}
+
+const { subscription } = Astro.props
+
+const plans = {
+	1: "1 Dispositivo",
+	2: "2 Dispositivos",
+	3: "3 Dispositivos",
+}
+
+const plan_id: keyof typeof plans = subscription?.plan_id as unknown as keyof typeof plans
+---
+
+{
+	!subscription || !subscription.is_active ? (
+		<div class="glass rounded-xl p-6 text-center">
+			<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
+			<p class="text-white/90">No tienes una suscripción activa.</p>
+		</div>
+	) : (
+		<div class="grid gap-6 md:grid-cols-2">
+			<div class="glass rounded-xl p-6">
+				<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
+				<div class="flex items-center space-x-2">
+					<div
+						class={`h-3 w-3 rounded-full ${subscription.is_active ? "bg-green-500" : "bg-red-500"}`}
+					/>
+					<span class="text-white/90">{subscription.is_active ? "Activo" : "Inactivo"}</span>
+				</div>
+			</div>
+
+			<div class="glass rounded-xl p-6">
+				<h2 class="mb-4 text-xl font-semibold text-white">Plan Actual</h2>
+				<p class="text-white/90">Plan: {plans[plan_id] ?? "N/A"}</p>
+			</div>
+
+			<div class="glass rounded-xl p-6">
+				<h2 class="mb-4 text-xl font-semibold text-white">Dispositivos Conectados</h2>
+				<p class="text-white/90">1 de 2 dispositivos en uso</p>
+			</div>
+
+			<div class="glass rounded-xl p-6">
+				<h2 class="mb-4 text-xl font-semibold text-white">Próxima Facturación</h2>
+				<p class="text-white/90">
+					{new Date(subscription.end_date).toLocaleDateString("es-ES", {
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					})}
+				</p>
+			</div>
+		</div>
+	)
+}
