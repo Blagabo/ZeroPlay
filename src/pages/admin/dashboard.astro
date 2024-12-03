@@ -1,105 +1,62 @@
 ---
-import Layout from "@layouts/Layout.astro"
-import Header from "@components/Header.astro"
-import Footer from "@components/Footer.astro"
+import AdminLayout from "@layouts/AdminLayout.astro"
+import { Stats } from "@components/admin/Stats"
 import { supabase } from "@lib/supabase"
 import { getSubscriptions } from "@components/supabase/GetSubscriptions"
-import { validateSession, clearAuthCookies } from "@utils/auth/session"
-import { validateUserRole } from "@utils/auth/roles"
-import { Toast } from "@components/UI/Toast"
-import { AUTH_ERRORS } from "@utils/constants/errors"
-
-const { cookies, redirect } = Astro
-
-const { isValid, user } = await validateSession(cookies)
-
-if (!isValid) {
-	clearAuthCookies(cookies)
-	return redirect("/signin?error=session_expired")
-}
-
-// Verificar si el usuario es admin
-const isAdmin = await validateUserRole(user!.id, "admin")
-if (!isAdmin) {
-	return redirect("/dashboard?error=unauthorized")
-}
 
 // Obtener estadísticas
 const { data: usersCount } = await supabase.from("users_profiles").select("id", { count: "exact" })
 const subscriptions = await getSubscriptions()
 
-const error = Astro.url.searchParams.get("error")
+const stats = {
+	totalUsers: usersCount?.length || 0,
+	newUsers: 0, // TODO: Implementar cálculo de usuarios nuevos
+	activeSubscriptions: subscriptions?.length || 0,
+	renewalRate: 0, // TODO: Implementar cálculo de tasa de renovación
+	monthlyRevenue: 0, // TODO: Implementar cálculo de ingresos
+	revenueChange: 0, // TODO: Implementar cálculo de cambio en ingresos
+	popularPlan: "2 Dispositivos",
+	popularPlanPercentage: 0, // TODO: Implementar cálculo de porcentaje
+}
 ---
 
-<Layout title="Admin Dashboard - ZeroPlay">
-	<Header />
-	<main class="min-h-screen px-4 pt-32">
-		{
-			error && (
-				<Toast
-					client:load
-					message={AUTH_ERRORS[error as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.GENERIC_ERROR}
-					type="error"
-					onClose={() => {}}
-				/>
-			)
-		}
-
-		<div class="mx-auto max-w-7xl">
-			<div class="glass rounded-2xl p-8">
-				<div class="mb-8 flex items-center justify-between">
-					<div>
-						<h1 class="text-3xl font-bold text-white">Panel de Administración</h1>
-						<p class="mt-2 text-white/80">Gestiona usuarios y suscripciones</p>
-					</div>
-				</div>
-
-				<!-- Estadísticas -->
-				<div class="mb-8 grid gap-6 md:grid-cols-3">
-					<div class="glass rounded-xl p-6">
-						<h3 class="mb-2 text-lg font-medium text-white/80">Total Usuarios</h3>
-						<p class="text-3xl font-bold text-white">{usersCount?.length || 0}</p>
-					</div>
-
-					<div class="glass rounded-xl p-6">
-						<h3 class="mb-2 text-lg font-medium text-white/80">Suscripciones Activas</h3>
-						<p class="text-3xl font-bold text-white">{subscriptions?.length || 0}</p>
-					</div>
-
-					<div class="glass rounded-xl p-6">
-						<h3 class="mb-2 text-lg font-medium text-white/80">Ingresos Mensuales</h3>
-						<p class="text-3xl font-bold text-white">$0</p>
-					</div>
-				</div>
-
-				<!-- Acciones Rápidas -->
-				<div class="mb-8">
-					<h2 class="mb-4 text-xl font-semibold text-white">Acciones Rápidas</h2>
-					<div class="flex space-x-4">
-						<a
-							href="/admin/users"
-							class="rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
-						>
-							Gestionar Usuarios
-						</a>
-						<a
-							href="/admin/subscriptions"
-							class="rounded-lg bg-secondary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-secondary-600"
-						>
-							Gestionar Suscripciones
-						</a>
-					</div>
-				</div>
-
-				<!-- Actividad Reciente -->
-				<div>
-					<h2 class="mb-4 text-xl font-semibold text-white">Actividad Reciente</h2>
-					<div class="glass rounded-xl p-6">
-						<p class="text-white/80">No hay actividad reciente para mostrar.</p>
-					</div>
-				</div>
+<AdminLayout title="Admin Dashboard - ZeroPlay">
+	<div class="glass rounded-2xl p-8">
+		<div class="mb-8 flex items-center justify-between">
+			<div>
+				<h1 class="text-3xl font-bold text-white">Panel de Administración</h1>
+				<p class="mt-2 text-white/80">Gestiona usuarios y suscripciones</p>
 			</div>
 		</div>
-	</main>
-	<Footer />
-</Layout>
+
+		<!-- Estadísticas -->
+		<Stats client:load stats={stats} />
+
+		<!-- Acciones Rápidas -->
+		<div class="mb-8 mt-8">
+			<h2 class="mb-4 text-xl font-semibold text-white">Acciones Rápidas</h2>
+			<div class="flex space-x-4">
+				<a
+					href="/admin/users"
+					class="rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+				>
+					Gestionar Usuarios
+				</a>
+				<a
+					href="/admin/subscriptions"
+					class="rounded-lg bg-secondary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-secondary-600"
+				>
+					Gestionar Suscripciones
+				</a>
+			</div>
+		</div>
+
+		<!-- Actividad Reciente -->
+		<div>
+			<h2 class="mb-4 text-xl font-semibold text-white">Actividad Reciente</h2>
+			<div class="glass rounded-xl p-6">
+				<p class="text-white/80">No hay actividad reciente para mostrar.</p>
+			</div>
+		</div>
+	</div>
+</AdminLayout>

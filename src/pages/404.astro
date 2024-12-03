@@ -1,0 +1,101 @@
+---
+import Layout from "@layouts/Layout.astro"
+import Header from "@components/Header.astro"
+import Footer from "@components/Footer.astro"
+import { motion } from "framer-motion"
+---
+
+<Layout title="404: Página no encontrada - ZeroPlay">
+	<Header />
+	<main class="min-h-screen px-4 pt-32">
+		<div class="mx-auto max-w-4xl text-center">
+			<div class="glass relative overflow-hidden rounded-2xl p-8 sm:p-12">
+				<!-- Animated background particles -->
+				<div class="absolute inset-0 -z-10">
+					<div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-secondary-500/20">
+					</div>
+				</div>
+
+				<motion.div
+					client:load
+					initial={{ scale: 0.5, opacity: 0 }}
+					animate={{ scale: 1, opacity: 1 }}
+					transition={{ duration: 0.5 }}
+					className="mb-8"
+				>
+					<h1 class="mb-4 text-6xl font-bold text-white sm:text-8xl">404</h1>
+					<div
+						class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500"
+					>
+					</div>
+				</motion.div>
+
+				<motion.div
+					client:load
+					initial={{ y: 20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ delay: 0.2, duration: 0.5 }}
+				>
+					<h2 class="mb-6 text-2xl font-semibold text-white/90 sm:text-3xl">
+						Página no encontrada
+					</h2>
+					<p class="mb-8 text-base text-white/80 sm:text-lg">
+						Lo sentimos, la página que estás buscando no existe o ha sido movida.
+					</p>
+				</motion.div>
+
+				<motion.div
+					client:load
+					initial={{ y: 20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ delay: 0.4, duration: 0.5 }}
+					className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
+				>
+					<a
+						href="/"
+						class="group relative w-full overflow-hidden rounded-lg bg-primary-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-600 sm:w-auto"
+					>
+						<span class="relative z-10 flex items-center justify-center">
+							<svg
+								class="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+							</svg>
+							Volver al inicio
+						</span>
+					</a>
+					<a
+						href="https://ig.me/m/zeroplay.tv"
+						target="_blank"
+						class="group relative w-full overflow-hidden rounded-lg bg-white/10 px-6 py-3 font-semibold text-white transition-all hover:bg-white/20 sm:w-auto"
+					>
+						<span class="relative z-10 flex items-center justify-center">
+							<svg
+								class="mr-2 h-5 w-5 transition-transform group-hover:rotate-12"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+								></path>
+							</svg>
+							Contactar soporte
+						</span>
+					</a>
+				</motion.div>
+			</div>
+		</div>
+	</main>
+	<Footer />
+</Layout>

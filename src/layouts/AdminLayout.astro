@@ -1,0 +1,51 @@
+---
+import Layout from "./Layout.astro"
+import Header from "@components/Header.astro"
+import Footer from "@components/Footer.astro"
+import { validateSession, clearAuthCookies } from "@utils/auth/session"
+import { validateUserRole } from "@utils/auth/roles"
+import { Toast } from "@components/UI/Toast"
+import { AUTH_ERRORS } from "@utils/constants/errors"
+
+interface Props {
+	title: string
+}
+
+const { title } = Astro.props
+const { cookies, redirect } = Astro
+
+const { isValid, user } = await validateSession(cookies)
+
+if (!isValid) {
+	clearAuthCookies(cookies)
+	return redirect("/signin?error=session_expired")
+}
+
+// Verificar si el usuario es admin
+const isAdmin = await validateUserRole(user!.id, "admin")
+if (!isAdmin) {
+	return redirect("/dashboard?error=unauthorized")
+}
+
+const error = Astro.url.searchParams.get("error")
+---
+
+<Layout title={title}>
+	<Header />
+	<main class="min-h-screen px-4 pt-32">
+		{
+			error && (
+				<Toast
+					client:load
+					message={AUTH_ERRORS[error as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.GENERIC_ERROR}
+					type="error"
+					onClose={() => {}}
+				/>
+			)
+		}
+		<div class="mx-auto max-w-7xl">
+			<slot />
+		</div>
+	</main>
+	<Footer />
+</Layout>
