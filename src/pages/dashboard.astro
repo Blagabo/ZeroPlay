@@ -6,6 +6,8 @@ import { getUserSubscription } from "@components/supabase/GetUserSubscription"
 import { Toast } from "@components/UI/Toast"
 import { AUTH_ERRORS } from "@utils/constants/errors"
 import { validateSession, clearAuthCookies } from "@utils/auth/session"
+import SubscriptionStatus from "@components/dashboard/SubscriptionStatus.astro"
+import SupportSection from "@components/dashboard/SupportSection.astro"
 
 const { cookies, redirect } = Astro
 
@@ -16,22 +18,11 @@ if (!isValid) {
 	return redirect("/signin?error=session_expired")
 }
 
-// Obtener datos del usuario y suscripción activa
 const userAndSubscription = await getUserSubscription(user!.id)
 
 if (!userAndSubscription) {
 	return redirect("/error")
 }
-
-const { subscription } = userAndSubscription
-
-const plans = {
-	1: "1 Dispositivo",
-	2: "2 Dispositivos",
-	3: "3 Dispositivos",
-}
-
-const plan_id: keyof typeof plans = subscription?.plan_id ?? null
 
 const error = Astro.url.searchParams.get("error")
 ---
@@ -65,66 +56,8 @@ const error = Astro.url.searchParams.get("error")
 						</button>
 					</form>
 				</div>
-
-				{
-					!subscription || !subscription.is_active ? (
-						<div class="glass rounded-xl p-6 text-center">
-							<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
-							<p class="text-white/90">No tienes una suscripción activa.</p>
-						</div>
-					) : (
-						<div class="grid gap-6 md:grid-cols-2">
-							<div class="glass rounded-xl p-6">
-								<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
-								<div class="flex items-center space-x-2">
-									<div
-										class={`h-3 w-3 rounded-full ${
-											subscription.is_active ? "bg-green-500" : "bg-red-500"
-										}`}
-									/>
-									<span class="text-white/90">
-										{subscription.is_active ? "Activo" : "Inactivo"}
-									</span>
-								</div>
-							</div>
-
-							<div class="glass rounded-xl p-6">
-								<h2 class="mb-4 text-xl font-semibold text-white">Plan Actual</h2>
-								<p class="text-white/90">Plan: {plans[plan_id] ?? "N/A"}</p>
-							</div>
-
-							<div class="glass rounded-xl p-6">
-								<h2 class="mb-4 text-xl font-semibold text-white">Dispositivos Conectados</h2>
-								<p class="text-white/90">1 de 2 dispositivos en uso</p>
-							</div>
-
-							<div class="glass rounded-xl p-6">
-								<h2 class="mb-4 text-xl font-semibold text-white">Próxima Facturación</h2>
-								<p class="text-white/90">
-									{new Date(subscription.end_date).toLocaleDateString("es-ES", {
-										year: "numeric",
-										month: "long",
-										day: "numeric",
-									})}
-								</p>
-							</div>
-						</div>
-					)
-				}
-
-				<div class="mt-8 rounded-xl bg-primary-500/10 p-6">
-					<h2 class="mb-4 text-xl font-semibold text-white">¿Necesitas ayuda?</h2>
-					<p class="mb-4 text-white/90">
-						Nuestro equipo de soporte está disponible 24/7 para ayudarte con cualquier consulta.
-					</p>
-					<a
-						href="https://ig.me/m/zeroplay.tv"
-						target="_blank"
-						class="inline-block rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
-					>
-						Contactar Soporte
-					</a>
-				</div>
+				<SubscriptionStatus subscription={userAndSubscription.subscription} />
+				<SupportSection />
 			</div>
 		</div>
 	</main>
