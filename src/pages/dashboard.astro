@@ -2,54 +2,25 @@
 import Layout from "@layouts/Layout.astro"
 import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
-import { supabase } from "@lib/supabase"
 import { getUserSubscription } from "@components/supabase/GetUserSubscription"
-import type { UserProfile } from "../types/supabase"
+import { Toast } from "@components/UI/Toast"
+import { AUTH_ERRORS } from "@utils/constants/errors"
+import { validateSession, clearAuthCookies } from "@utils/auth/session"
 
 const { cookies, redirect } = Astro
 
-const accessToken = cookies.get("sb-access-token")
-const refreshToken = cookies.get("sb-refresh-token")
+const { isValid, user } = await validateSession(cookies)
 
-if (!accessToken || !refreshToken) {
-	return redirect("/signin")
-}
-
-// Restaurar la sesión del usuario
-const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
-	refresh_token: refreshToken.value,
-	access_token: accessToken.value,
-})
-
-if (sessionError) {
-	cookies.delete("sb-access-token", { path: "/" })
-	cookies.delete("sb-refresh-token", { path: "/" })
-	return redirect("/signin")
-}
-
-// Obtener el ID del usuario autenticado
-const userId = sessionData?.user?.id
-if (!userId) {
-	return redirect("/signin")
-}
-
-const { data: userData } = await supabase.auth.getUser()
-
-const user: UserProfile = {
-	id: userData.user?.id ?? "",
-	role: "authenticated",
-	email: userData.user?.email ?? "",
-	phone: userData.user?.phone ?? "",
-	email_verified: userData.user?.user_metadata?.email_verified,
-	phone_verified: userData.user?.user_metadata?.phone_verified,
-	created_at: userData.user?.created_at ?? "",
+if (!isValid) {
+	clearAuthCookies(cookies)
+	return redirect("/signin?error=session_expired")
 }
 
 // Obtener datos del usuario y suscripción activa
-const userAndSubscription = await getUserSubscription(userId)
+const userAndSubscription = await getUserSubscription(user!.id)
 
 if (!userAndSubscription) {
-	return redirect("/error") // Redirigir a una página de error si no se encuentran datos
+	return redirect("/error")
 }
 
 const { subscription } = userAndSubscription
@@ -61,12 +32,25 @@ const plans = {
 }
 
 const plan_id: keyof typeof plans = subscription?.plan_id ?? null
+
+const error = Astro.url.searchParams.get("error")
 ---
 
 <Layout title="Panel de Control - ZeroPlay">
 	<Header />
 	<main class="min-h-screen px-4 pt-32">
 		<div class="mx-auto max-w-4xl">
+			{
+				error && (
+					<Toast
+						client:load
+						message={AUTH_ERRORS[error as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.GENERIC_ERROR}
+						type="error"
+						onClose={() => {}}
+					/>
+				)
+			}
+
 			<div class="glass rounded-2xl p-8">
 				<div class="mb-8 flex items-center justify-between">
 					<div>
@@ -95,7 +79,6 @@ const plan_id: keyof typeof plans = subscription?.plan_id ?? null
 								<h2 class="mb-4 text-xl font-semibold text-white">Estado del Servicio</h2>
 								<div class="flex items-center space-x-2">
 									<div
-										id="pointStatus"
 										class={`h-3 w-3 rounded-full ${
 											subscription.is_active ? "bg-green-500" : "bg-red-500"
 										}`}

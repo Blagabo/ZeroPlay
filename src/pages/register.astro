@@ -3,21 +3,36 @@ import Layout from "@layouts/Layout.astro"
 import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
 import PasswordInput from "@components/UI/PasswordInput"
+import { validateSession } from "@utils/auth/session"
+import { Toast } from "@components/UI/Toast"
+import { AUTH_ERRORS } from "@utils/constants/errors"
 
 const { cookies, redirect } = Astro
 
-const accessToken = cookies.get("sb-access-token")
-const refreshToken = cookies.get("sb-refresh-token")
+const { isValid } = await validateSession(cookies)
 
-if (accessToken && refreshToken) {
+if (isValid) {
 	return redirect("/dashboard")
 }
+
+const error = Astro.url.searchParams.get("error")
 ---
 
 <Layout title="Registrarse - ZeroPlay">
 	<Header />
-	<main class="px-4 pt-32">
+	<main class="min-h-screen px-4 pt-32">
 		<div class="mx-auto max-w-md">
+			{
+				error && (
+					<Toast
+						client:load
+						message={AUTH_ERRORS[error as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.GENERIC_ERROR}
+						type="error"
+						onClose={() => {}}
+					/>
+				)
+			}
+
 			<div class="glass rounded-2xl p-8">
 				<h1 class="mb-6 text-center text-3xl font-bold text-white">Crear cuenta</h1>
 				<p class="mb-8 text-center text-white/80">
