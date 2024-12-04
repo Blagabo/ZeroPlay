@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
 	name: "ZeroPlay",
-	description: "Tu mejor opción en entretenimiento",
+	description: "Tu mejor opción de TV",
 	contact: {
 		email: "soporte@zeroplay.com",
 		phone: "+1234567890",
@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
 		description:
 			"Disfruta de miles de canales y contenido bajo demanda en alta calidad. Películas, series y eventos deportivos en vivo.",
 		keywords: "iptv, streaming, películas, series, tv en vivo, deportes",
-		ogImage: "/og-image.jpg",
+		ogImage: "/logo.png",
 		twitterHandle: "@zeroplay",
 	},
 }
@@ -26,6 +26,7 @@ export const META_DEFAULTS = {
 		image: SITE_CONFIG.seo.ogImage,
 	},
 	twitter: {
+		image: SITE_CONFIG.seo.ogImage,
 		card: "summary_large_image",
 		site: SITE_CONFIG.seo.twitterHandle,
 	},
