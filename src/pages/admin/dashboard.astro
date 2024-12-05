@@ -38,7 +38,7 @@ const error = Astro.url.searchParams.get("error")
 			error && (
 				<Toast
 					client:load
-					message={AUTH_ERRORS[error as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.GENERIC_ERROR}
+					message={AUTH_ERRORS[error as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.generic_error}
 					type="error"
 				/>
 			)

@@ -17,5 +17,5 @@ export const handleAuthError = (error: any) => {
 
 export const getErrorMessage = (errorCode: string | null) => {
 	if (!errorCode) return null
-	return AUTH_ERRORS[errorCode as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.GENERIC_ERROR
+	return AUTH_ERRORS[errorCode as keyof typeof AUTH_ERRORS] || AUTH_ERRORS.generic_error
 }
