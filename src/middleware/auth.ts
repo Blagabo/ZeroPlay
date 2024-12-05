@@ -1,6 +1,6 @@
-import type { MiddlewareHandler } from "astro"
-import { validateSession, clearAuthCookies } from "@utils/auth/session"
 import { validateUserRole } from "@utils/auth/roles"
+import { clearAuthCookies, validateSession } from "@utils/auth/session"
+import type { MiddlewareHandler } from "astro"
 
 export const handleAuth: MiddlewareHandler = async ({ cookies, redirect, request }, next) => {
 	const { isValid, user } = await validateSession(cookies)
@@ -15,6 +15,8 @@ export const handleAuth: MiddlewareHandler = async ({ cookies, redirect, request
 		const isAdmin = await validateUserRole(user!.id, "admin")
 		if (!isAdmin) {
 			return redirect("/dashboard?error=unauthorized")
+		} else if (isAdmin && request.url === "/admin") {
+			return redirect("/admin/dashboard")
 		}
 	}
 
