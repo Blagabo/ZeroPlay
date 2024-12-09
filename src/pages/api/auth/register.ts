@@ -1,6 +1,6 @@
-import type { APIRoute } from "astro"
 import { supabase } from "@lib/supabase"
 import { handleAuthError } from "@utils/auth/errors"
+import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ request, redirect }) => {
 	try {
