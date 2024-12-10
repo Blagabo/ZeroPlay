@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro"
 import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
-import { getUserSubscription } from "@components/supabase/GetUserSubscription"
+import { SubscriptionService } from "@services/database/subscription.service"
 import { Toast } from "@components/UI/Toast"
 import { AUTH_ERRORS } from "@utils/constants/errors"
 import { validateSession, clearAuthCookies } from "@utils/auth/session"
@@ -18,12 +18,7 @@ if (!isValid) {
 	return redirect("/signin?error=session_expired")
 }
 
-const userAndSubscription = await getUserSubscription(user!.id)
-
-if (!userAndSubscription) {
-	return redirect("/error")
-}
-
+const subscription = await SubscriptionService.getUserSubscription(user!.id)
 const error = Astro.url.searchParams.get("error")
 ---
 
@@ -47,7 +42,7 @@ const error = Astro.url.searchParams.get("error")
 						<h1 class="text-3xl font-bold text-white">Panel de Control</h1>
 						<p class="mt-2 text-white/80">Bienvenido {user?.email}</p>
 					</div>
-					<form action="/api/auth/signout">
+					<form action="/api/auth/signout" method="post">
 						<button
 							type="submit"
 							class="rounded-lg bg-white/10 px-4 py-2 font-semibold text-white transition-colors hover:bg-white/20"
@@ -56,7 +51,7 @@ const error = Astro.url.searchParams.get("error")
 						</button>
 					</form>
 				</div>
-				<SubscriptionStatus subscription={userAndSubscription.subscription} />
+				<SubscriptionStatus subscription={subscription} />
 				<SupportSection />
 			</div>
 		</div>

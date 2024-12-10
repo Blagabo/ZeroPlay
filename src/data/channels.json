@@ -1,0 +1,195 @@
+{
+	"groups": [
+		{
+			"name": "Deportes",
+			"icon": "🏆",
+			"channels": [
+				{
+					"name": "ESPN",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"],
+					"tags": ["Fútbol", "Baloncesto", "Béisbol", "Tenis", "Golf", "Fórmula 1"],
+					"countries": [
+						"Argentina",
+						"Chile",
+						"Colombia",
+						"México",
+						"Perú",
+						"España",
+						"Estados Unidos"
+					],
+					"img": "https://image.tmdb.org/t/p/w185/reH7VZrdZSmNib0Me2JgkGOJJUz.jpg"
+				},
+				{
+					"name": "ESPN 2",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "ESPN 3",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "ESPN 4",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "Fox Sports",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "Fox Sports 2",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "Fox Sports 3",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "TUDN",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "beIN Sports",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				}
+			]
+		},
+		{
+			"name": "Películas",
+			"icon": "🎬",
+			"channels": [
+				{
+					"name": "HBO",
+					"quality": "FHD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "HBO 2",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "HBO Plus",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "Cinemax",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "TNT",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "Space",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "Cinecanal",
+					"quality": "HD",
+					"languages": ["ESP"]
+				}
+			]
+		},
+		{
+			"name": "Series",
+			"icon": "📺",
+			"channels": [
+				{
+					"name": "Warner TV",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "Sony Channel",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "Universal TV",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "AXN",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "FX",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				}
+			]
+		},
+		{
+			"name": "Infantil",
+			"icon": "👶",
+			"channels": [
+				{
+					"name": "Disney Channel",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "Disney Junior",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "Nickelodeon",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "Cartoon Network",
+					"quality": "HD",
+					"languages": ["ESP"]
+				},
+				{
+					"name": "Discovery Kids",
+					"quality": "HD",
+					"languages": ["ESP"]
+				}
+			]
+		},
+		{
+			"name": "Documentales",
+			"icon": "🌎",
+			"channels": [
+				{
+					"name": "Discovery Channel",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "National Geographic",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "History Channel",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				},
+				{
+					"name": "Animal Planet",
+					"quality": "HD",
+					"languages": ["ESP", "ENG"]
+				}
+			]
+		}
+	]
+}

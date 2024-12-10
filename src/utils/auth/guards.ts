@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro"
-import { validateSession, clearAuthCookies } from "./session"
+import { clearAuthCookies, validateSession } from "./session"
 
 export const authGuard = async (
 	cookies: Parameters<APIRoute>[0]["cookies"],
