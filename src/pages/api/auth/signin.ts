@@ -1,4 +1,4 @@
-import { supabase } from "@lib/supabase"
+import { AuthService } from "@services/database/auth.service"
 import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
@@ -11,10 +11,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 			return redirect("/signin?error=missing_fields")
 		}
 
-		const { data, error } = await supabase.auth.signInWithPassword({
-			email,
-			password,
-		})
+		const { data, error } = await AuthService.signIn(email, password)
 
 		if (error) {
 			console.error("Error de inicio de sesión:", error.message)
@@ -27,7 +24,6 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
 		const { access_token, refresh_token } = data.session
 
-		// Configurar las cookies con opciones seguras
 		cookies.set("sb-access-token", access_token, {
 			path: "/",
 			secure: true,

@@ -9,9 +9,10 @@ export const SITE_CONFIG = {
 	seo: {
 		title: "ZeroPlay - Servicio Premium de IPTV",
 		description:
-			"Disfruta de miles de canales y contenido bajo demanda en alta calidad. Películas, series y eventos deportivos en vivo.",
-		keywords: "iptv, streaming, películas, series, tv en vivo, deportes",
-		ogImage: "/logo.png",
+			"Disfruta de miles de canales y contenido bajo demanda en alta calidad. Películas, series, deportes en vivo y más en cualquier dispositivo.",
+		keywords:
+			"iptv, streaming, películas, series, tv en vivo, deportes, hbo, netflix, disney plus, espn",
+		ogImage: "/images/og-image.webp",
 		twitterHandle: "@zeroplay",
 	},
 }
@@ -26,8 +27,9 @@ export const META_DEFAULTS = {
 		image: SITE_CONFIG.seo.ogImage,
 	},
 	twitter: {
-		image: SITE_CONFIG.seo.ogImage,
 		card: "summary_large_image",
 		site: SITE_CONFIG.seo.twitterHandle,
+		image: SITE_CONFIG.seo.ogImage,
+		creator: SITE_CONFIG.seo.twitterHandle,
 	},
 }

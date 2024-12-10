@@ -4,37 +4,67 @@ import { META_DEFAULTS } from "@utils/constants"
 interface Props {
 	title?: string
 	description?: string
+	image?: string
 }
 
-const { title = META_DEFAULTS.title, description = META_DEFAULTS.description } = Astro.props
+const {
+	title = META_DEFAULTS.title,
+	description = META_DEFAULTS.description,
+	image = META_DEFAULTS.og.image,
+} = Astro.props
 
-import "@lib/zod"
+const canonicalURL = new URL(Astro.url.pathname, "https://zeroplay.tv")
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={canonicalURL} />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<!-- Fuentes -->
 		<link
 			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 			rel="stylesheet"
+			crossorigin="anonymous"
 		/>
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+			crossorigin="anonymous"
 		/>
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={META_DEFAULTS.og.type} />
+		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:type" content={META_DEFAULTS.og.type} />
-		<meta property="og:locale" content={META_DEFAULTS.og.locale} />
+		<meta property="og:image" content={new URL(image, canonicalURL.origin)} />
 		<meta property="og:site_name" content={META_DEFAULTS.og.site_name} />
-		<meta property="og:image" content={META_DEFAULTS.og.image} />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:locale" content={META_DEFAULTS.og.locale} />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content={META_DEFAULTS.twitter.card} />
+		<meta name="twitter:site" content={META_DEFAULTS.twitter.site} />
+		<meta name="twitter:creator" content={META_DEFAULTS.twitter.creator} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(image, canonicalURL.origin)} />
+
+		<!-- Generador -->
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+
+		<!-- Precargar recursos críticos -->
+		<link
+			rel="preload"
+			as="font"
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+		/>
 	</head>
 	<body>
 		<div class="background">

@@ -10,6 +10,7 @@ import cloudflare from "@astrojs/cloudflare"
 
 // https://astro.build/config
 export default defineConfig({
+	site: "https://zeroplay.tv",
 	prefetch: true,
 	integrations: [tailwind(), react()],
 	output: "server",
