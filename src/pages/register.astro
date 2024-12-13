@@ -7,12 +7,12 @@ import { validateSession } from "@utils/auth/session"
 import { Toast } from "@components/UI/Toast"
 import { AUTH_ERRORS } from "@utils/constants/errors"
 
-const { cookies, redirect } = Astro
+const { cookies, redirect: _redirect } = Astro
 
 const { isValid } = await validateSession(cookies)
 
 if (isValid) {
-	return redirect("/dashboard")
+	return _redirect("/dashboard")
 }
 
 const error = Astro.url.searchParams.get("error")

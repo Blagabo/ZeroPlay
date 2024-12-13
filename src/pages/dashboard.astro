@@ -9,13 +9,13 @@ import { validateSession, clearAuthCookies } from "@utils/auth/session"
 import SubscriptionStatus from "@components/dashboard/SubscriptionStatus.astro"
 import SupportSection from "@components/dashboard/SupportSection.astro"
 
-const { cookies, redirect } = Astro
+const { cookies, redirect: _redirect } = Astro
 
 const { isValid, user } = await validateSession(cookies)
 
 if (!isValid) {
 	clearAuthCookies(cookies)
-	return redirect("/signin?error=session_expired")
+	return _redirect("/signin?error=session_expired")
 }
 
 const subscription = await SubscriptionService.getUserSubscription(user!.id)

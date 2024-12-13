@@ -8,18 +8,18 @@ import { UserService } from "@services/database/user.service"
 import { Toast } from "@components/UI/Toast"
 import { AUTH_ERRORS } from "@utils/constants/errors"
 
-const { cookies, redirect } = Astro
+const { cookies, redirect: _redirect } = Astro
 
 const { isValid, user } = await validateSession(cookies)
 
 if (!isValid) {
 	clearAuthCookies(cookies)
-	return redirect("/signin?error=session_expired")
+	return _redirect("/signin?error=session_expired")
 }
 
 const isAdmin = await UserService.validateRole(user!.id, "admin")
 if (!isAdmin) {
-	return redirect("/dashboard?error=unauthorized")
+	return _redirect("/dashboard?error=unauthorized")
 }
 
 const users = await UserService.getAllUsers()
