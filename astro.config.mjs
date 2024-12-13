@@ -18,6 +18,7 @@ export default defineConfig({
 		webAnalytics: {
 			enabled: true,
 		},
+		imageService: true,
 	}),
 	vite: {
 		define: {
