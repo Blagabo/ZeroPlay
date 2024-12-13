@@ -23,6 +23,7 @@
 		"@astrojs/cloudflare": "^11.2.0",
 		"@astrojs/react": "^3.6.3",
 		"@astrojs/tailwind": "^5.1.2",
+		"@astrojs/vercel": "^8.0.0",
 		"@supabase/supabase-js": "^2.46.2",
 		"@tanstack/react-table": "^8.13.2",
 		"@types/react": "^18.3.12",
