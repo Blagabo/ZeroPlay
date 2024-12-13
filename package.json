@@ -12,7 +12,7 @@
 		"build": "astro check && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"clean:build": "rm -rf .astro dist",
+		"clean:build": "rm -rf .astro dist .vercel",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "prettier --write .",

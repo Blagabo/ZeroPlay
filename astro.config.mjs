@@ -12,14 +12,14 @@ import vercel from "@astrojs/vercel"
 export default defineConfig({
 	site: "https://zeroplay.tv",
 	prefetch: true,
+	compressHTML: true,
 	integrations: [tailwind(), react()],
-	output: "server",
 	adapter: vercel({
 		webAnalytics: {
 			enabled: true,
 		},
-		imageService: true,
 	}),
+	output: "server",
 	vite: {
 		define: {
 			"process.env.SUPABASE_URL": JSON.stringify(process.env.SUPABASE_URL),
