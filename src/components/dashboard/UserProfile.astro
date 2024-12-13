@@ -1,0 +1,115 @@
+---
+import type { UserProfile } from "../../types/supabase/schema"
+
+interface Props {
+	user: UserProfile
+}
+
+const { user } = Astro.props
+---
+
+<div class="mt-8">
+	<h2 class="mb-4 text-xl font-semibold text-white">Perfil de Usuario</h2>
+	<div class="glass rounded-xl p-6">
+		<form action="/api/user/update-profile" method="POST" class="space-y-6">
+			<div class="grid gap-6 md:grid-cols-2">
+				<div>
+					<label for="full_name" class="mb-2 block text-sm font-medium text-white/80"
+						>Nombre Completo</label
+					>
+					<input
+						type="text"
+						id="full_name"
+						name="full_name"
+						value={user.full_name || ""}
+						class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<div>
+					<label for="phone" class="mb-2 block text-sm font-medium text-white/80">Teléfono</label>
+					<input
+						type="tel"
+						id="phone"
+						name="phone"
+						value={user.phone || ""}
+						class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<div class="md:col-span-2">
+					<label for="email" class="mb-2 block text-sm font-medium text-white/80">Email</label>
+					<input
+						type="email"
+						id="email"
+						value={user.email}
+						disabled
+						class="w-full cursor-not-allowed rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white/50"
+					/>
+				</div>
+			</div>
+
+			<div class="flex justify-end">
+				<button
+					type="submit"
+					class="rounded-lg bg-primary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-600"
+				>
+					Guardar Cambios
+				</button>
+			</div>
+		</form>
+
+		<div class="mt-8 border-t border-white/10 pt-6">
+			<h3 class="mb-4 text-lg font-semibold text-white">Cambiar Contraseña</h3>
+			<form action="/api/user/change-password" method="POST" class="space-y-4">
+				<div>
+					<label for="current_password" class="mb-2 block text-sm font-medium text-white/80"
+						>Contraseña Actual</label
+					>
+					<input
+						type="password"
+						id="current_password"
+						name="current_password"
+						required
+						class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<div>
+					<label for="new_password" class="mb-2 block text-sm font-medium text-white/80"
+						>Nueva Contraseña</label
+					>
+					<input
+						type="password"
+						id="new_password"
+						name="new_password"
+						required
+						class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<div>
+					<label for="confirm_password" class="mb-2 block text-sm font-medium text-white/80"
+						>Confirmar Nueva Contraseña</label
+					>
+					<input
+						type="password"
+						id="confirm_password"
+						name="confirm_password"
+						required
+						class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/50 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<div class="flex justify-end">
+					<button
+						type="submit"
+						class="rounded-lg bg-secondary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-secondary-600"
+					>
+						Actualizar Contraseña
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

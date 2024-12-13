@@ -11,7 +11,7 @@ interface Props {
 export const UserModal = ({ isOpen, onClose, user }: Props) => {
 	const [formData, setFormData] = useState({
 		full_name: "",
-		phone: "",
+		phone: 123,
 		role: "authenticated",
 	})
 	const [error, setError] = useState("")
@@ -21,7 +21,7 @@ export const UserModal = ({ isOpen, onClose, user }: Props) => {
 		if (user) {
 			setFormData({
 				full_name: user.full_name || "",
-				phone: user.phone || "",
+				phone: user.phone || 123,
 				role: user.role,
 			})
 		}
@@ -88,7 +88,7 @@ export const UserModal = ({ isOpen, onClose, user }: Props) => {
 							id="phone"
 							type="text"
 							value={formData.phone}
-							onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+							onChange={(e) => setFormData({ ...formData, phone: Number(e.target.value) })}
 							className="w-full rounded border border-white/10 bg-white/5 px-3 py-2 text-white"
 						/>
 					</div>

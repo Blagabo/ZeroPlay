@@ -3,23 +3,27 @@ import Layout from "@layouts/Layout.astro"
 import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
 import { SubscriptionService } from "@services/database/subscription.service"
+import { UserService } from "@services/database/user.service"
 import { Toast } from "@components/UI/Toast"
 import { AUTH_ERRORS } from "@utils/constants/errors"
 import { validateSession, clearAuthCookies } from "@utils/auth/session"
 import SubscriptionStatus from "@components/dashboard/SubscriptionStatus.astro"
+import { UserProfileModal } from "@components/dashboard/UserProfileModal"
 import SupportSection from "@components/dashboard/SupportSection.astro"
 
-const { cookies, redirect } = Astro
+const { cookies, redirect: _redirect } = Astro
 
 const { isValid, user } = await validateSession(cookies)
 
 if (!isValid) {
 	clearAuthCookies(cookies)
-	return redirect("/signin?error=session_expired")
+	return _redirect("/signin?error=session_expired")
 }
 
 const subscription = await SubscriptionService.getUserSubscription(user!.id)
+const userProfile = await UserService.getProfile(user!.id)
 const error = Astro.url.searchParams.get("error")
+const success = Astro.url.searchParams.get("success")
 ---
 
 <Layout title="Panel de Control - ZeroPlay">
@@ -35,26 +39,97 @@ const error = Astro.url.searchParams.get("error")
 					/>
 				)
 			}
+			{success && <Toast client:load message={success} type="success" />}
 
 			<div class="glass rounded-2xl p-8">
-				<div class="mb-8 flex items-center justify-between">
+				<!-- Encabezado -->
+				<div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 					<div>
 						<h1 class="text-3xl font-bold text-white">Panel de Control</h1>
-						<p class="mt-2 text-white/80">Bienvenido {user?.email}</p>
+						<p class="mt-2 text-white/80">Bienvenido {userProfile?.full_name || user?.email}</p>
 					</div>
-					<form action="/api/auth/signout" method="post">
+					<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:space-x-4">
 						<button
-							type="submit"
-							class="rounded-lg bg-white/10 px-4 py-2 font-semibold text-white transition-colors hover:bg-white/20"
+							id="openProfileModal"
+							class="flex items-center justify-center space-x-2 rounded-lg bg-secondary-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-secondary-600"
 						>
-							Cerrar sesión
+							<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+							</svg>
+							<span>Editar Perfil</span>
 						</button>
-					</form>
+						<form action="/api/auth/signout" method="post">
+							<button
+								type="submit"
+								class="w-full rounded-lg bg-white/10 px-4 py-2 font-semibold text-white transition-colors hover:bg-white/20 sm:w-auto"
+							>
+								Cerrar sesión
+							</button>
+						</form>
+					</div>
 				</div>
+
+				<!-- Estado de Suscripción -->
 				<SubscriptionStatus subscription={subscription} />
+
+				<!-- Accesos Rápidos -->
+				<div class="mt-8">
+					<a
+						href="/setup-guide"
+						class="glass flex items-center space-x-4 rounded-xl p-6 transition-transform hover:scale-105"
+					>
+						<div class="rounded-full bg-secondary-500/20 p-3 text-secondary-500">
+							<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+								></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="font-semibold text-white">Guía de Instalación</h3>
+							<p class="text-sm text-white/70">Configura el servicio en tus dispositivos</p>
+						</div>
+					</a>
+				</div>
+
+				<!-- Soporte -->
 				<SupportSection />
 			</div>
 		</div>
 	</main>
+
+	<div id="profileModalContainer">
+		{
+			userProfile && (
+				<UserProfileModal client:load user={userProfile} isOpen={false} onClose={() => {}} />
+			)
+		}
+	</div>
+
 	<Footer />
 </Layout>
+
+<script>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	let profileModal: any = null
+	const modalContainer = document.getElementById("profileModalContainer")
+	const openButton = document.getElementById("openProfileModal")
+
+	// Esperar a que el componente React se monte
+	setTimeout(() => {
+		profileModal = modalContainer?.querySelector("[data-profile-modal]")
+	}, 0)
+
+	openButton?.addEventListener("click", () => {
+		if (profileModal) {
+			profileModal.__toggleModal(true)
+		}
+	})
+</script>
