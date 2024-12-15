@@ -14,12 +14,12 @@ export default defineConfig({
 	prefetch: true,
 	compressHTML: true,
 	integrations: [tailwind(), react()],
+	output: "server",
 	adapter: vercel({
 		webAnalytics: {
 			enabled: true,
 		},
 	}),
-	output: "server",
 	vite: {
 		define: {
 			"process.env.SUPABASE_URL": JSON.stringify(process.env.SUPABASE_URL),
