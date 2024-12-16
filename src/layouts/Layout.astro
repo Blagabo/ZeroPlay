@@ -1,5 +1,6 @@
 ---
 import { META_DEFAULTS } from "@utils/constants"
+import Analytics from "@vercel/analytics/astro"
 
 interface Props {
 	title?: string
@@ -72,6 +73,7 @@ const canonicalURL = new URL(Astro.url.pathname, "https://zeroplay.tv")
 			<div class="particles"></div>
 		</div>
 		<slot />
+		<Analytics />
 	</body>
 </html>
 
