@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
 			"Disfruta de miles de canales y contenido bajo demanda en alta calidad. Películas, series, deportes en vivo y más en cualquier dispositivo.",
 		keywords:
 			"iptv, streaming, películas, series, tv en vivo, deportes, hbo, netflix, disney plus, espn",
-		ogImage: "/images/og-image.webp",
+		ogImage: "/logo.png",
 		twitterHandle: "@zeroplay",
 	},
 }
@@ -27,7 +27,6 @@ export const META_DEFAULTS = {
 		image: SITE_CONFIG.seo.ogImage,
 	},
 	twitter: {
-		card: "summary_large_image",
 		site: SITE_CONFIG.seo.twitterHandle,
 		image: SITE_CONFIG.seo.ogImage,
 		creator: SITE_CONFIG.seo.twitterHandle,

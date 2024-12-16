@@ -29,6 +29,9 @@ const canonicalURL = new URL(Astro.url.pathname, "https://zeroplay.tv")
 		<link rel="canonical" href={canonicalURL} />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
+		<Analytics />
+		<SpeedInsights />
+
 		<!-- Fuentes -->
 		<link
 			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -46,17 +49,16 @@ const canonicalURL = new URL(Astro.url.pathname, "https://zeroplay.tv")
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL(image, canonicalURL.origin)} />
+		<meta property="og:image" content={image} />
 		<meta property="og:site_name" content={META_DEFAULTS.og.site_name} />
 		<meta property="og:locale" content={META_DEFAULTS.og.locale} />
 
 		<!-- Twitter -->
-		<meta name="twitter:card" content={META_DEFAULTS.twitter.card} />
 		<meta name="twitter:site" content={META_DEFAULTS.twitter.site} />
 		<meta name="twitter:creator" content={META_DEFAULTS.twitter.creator} />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={new URL(image, canonicalURL.origin)} />
+		<meta name="twitter:image" content={image} />
 
 		<!-- Generador -->
 		<meta name="generator" content={Astro.generator} />
@@ -74,8 +76,6 @@ const canonicalURL = new URL(Astro.url.pathname, "https://zeroplay.tv")
 			<div class="particles"></div>
 		</div>
 		<slot />
-		<Analytics />
-		<SpeedInsights />
 	</body>
 </html>
 
