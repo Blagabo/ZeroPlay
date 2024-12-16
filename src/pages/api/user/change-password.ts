@@ -1,4 +1,4 @@
-import { supabase } from "@lib/supabase"
+import { supabase } from "@lib/db"
 import { clearAuthCookies, validateSession } from "@utils/auth/session"
 import { AUTH_ERRORS } from "@utils/constants/errors"
 import type { APIRoute } from "astro"

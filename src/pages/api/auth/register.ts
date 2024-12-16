@@ -1,5 +1,4 @@
-import { AuthService } from "@services/database/auth.service"
-import { UserService } from "@services/database/user.service"
+import { AuthService, UserService } from "@services"
 import { handleAuthError } from "@utils/auth/errors"
 import type { APIRoute } from "astro"
 

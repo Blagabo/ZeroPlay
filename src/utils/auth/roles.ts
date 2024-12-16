@@ -1,4 +1,4 @@
-import { supabase } from "@lib/supabase"
+import { supabase } from "@lib/db"
 
 export const validateUserRole = async (userId: string, requiredRole: string) => {
 	try {

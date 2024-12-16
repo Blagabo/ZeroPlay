@@ -1,4 +1,4 @@
-import { supabase } from "@lib/supabase"
+import { supabase } from "@lib/db"
 import type { AuthResponse, User } from "@supabase/supabase-js"
 
 export class AuthService {

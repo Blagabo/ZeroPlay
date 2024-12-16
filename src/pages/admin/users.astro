@@ -4,7 +4,7 @@ import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
 import { UsersList } from "@components/admin/users/UsersList"
 import { validateSession, clearAuthCookies } from "@utils/auth/session"
-import { UserService } from "@services/database/user.service"
+import { UserService } from "@services"
 import { Toast } from "@components/UI/Toast"
 import { AUTH_ERRORS } from "@utils/constants/errors"
 

@@ -1,4 +1,4 @@
-import { supabase } from "@lib/supabase"
+import { supabase } from "@lib/db"
 import type { UserProfile } from "../../types/supabase/schema"
 
 export class UserService {
@@ -9,7 +9,7 @@ export class UserService {
 				{
 					id: userId,
 					email,
-					role: "user",
+					role: "authenticated",
 					full_name: null,
 					phone: null,
 				},
@@ -47,8 +47,7 @@ export class UserService {
 		const { data, error } = await supabase
 			.from("users_profiles")
 			.update({
-				full_name: updates.full_name,
-				phone: updates.phone,
+				...updates,
 				updated_at: new Date().toISOString(),
 			})
 			.eq("id", userId)

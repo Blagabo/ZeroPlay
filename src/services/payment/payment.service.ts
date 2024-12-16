@@ -1,4 +1,4 @@
-import { supabase } from "@lib/supabase"
+import { supabase } from "@lib/db"
 import type { Payment } from "../../types/supabase/schema"
 
 export class PaymentService {

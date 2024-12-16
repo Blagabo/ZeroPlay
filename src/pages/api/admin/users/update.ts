@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { UserService } from "@services/database/user.service"
+import { UserService } from "@services"
 import { clearAuthCookies, validateSession } from "@utils/auth/session"
 import type { APIRoute } from "astro"
 
