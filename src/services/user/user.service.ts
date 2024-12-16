@@ -1,4 +1,4 @@
-import { supabase } from "@lib/supabase"
+import { supabase } from "@lib/db"
 import type { UserProfile } from "../../types/supabase/schema"
 
 export class UserService {
@@ -9,7 +9,9 @@ export class UserService {
 				{
 					id: userId,
 					email,
-					role: "user",
+					role: "authenticated",
+					full_name: null,
+					phone: null,
 				},
 			])
 			.select()
@@ -40,11 +42,14 @@ export class UserService {
 
 	static async updateProfile(
 		userId: string,
-		updates: Partial<UserProfile>
+		updates: { full_name: string | null; phone: number | null }
 	): Promise<UserProfile | null> {
 		const { data, error } = await supabase
 			.from("users_profiles")
-			.update(updates)
+			.update({
+				...updates,
+				updated_at: new Date().toISOString(),
+			})
 			.eq("id", userId)
 			.select()
 			.single()
@@ -58,21 +63,15 @@ export class UserService {
 	}
 
 	static async validateRole(userId: string, role: string): Promise<boolean> {
-		const { data, error } = await supabase
-			.from("users_profiles")
-			.select("role")
-			.eq("id", userId)
-			.single()
-
-		if (error || !data) {
-			return false
-		}
-
-		return data.role === role
+		const profile = await this.getProfile(userId)
+		return profile?.role === role
 	}
 
 	static async getAllUsers(): Promise<UserProfile[] | null> {
-		const { data, error } = await supabase.from("users_profiles").select("*")
+		const { data, error } = await supabase
+			.from("users_profiles")
+			.select("*")
+			.order("created_at", { ascending: false })
 
 		if (error) {
 			console.error("Error fetching users:", error)

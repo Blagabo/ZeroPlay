@@ -1,4 +1,4 @@
-import { AuthService } from "@services/database/auth.service"
+import { AuthService } from "@services"
 import type { APIRoute } from "astro"
 
 export const POST: APIRoute = async ({ cookies, redirect }) => {

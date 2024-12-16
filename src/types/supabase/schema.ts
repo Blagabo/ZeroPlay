@@ -1,8 +1,8 @@
 export interface UserProfile {
 	id: string
 	email: string
-	full_name?: string
-	phone?: string
+	full_name: string | null
+	phone: number | null
 	role: "admin" | "authenticated"
 	created_at: string
 	updated_at: string

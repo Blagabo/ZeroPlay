@@ -1,17 +1,17 @@
 import React, { useState } from "react"
+import { filterChannels } from "@utils/channels/search"
 
 interface Props {
-	onSearch: (query: string) => void
 	totalChannels: number
 }
 
-export const SearchChannels = ({ onSearch, totalChannels }: Props) => {
+export const SearchChannels = ({ totalChannels }: Props) => {
 	const [searchQuery, setSearchQuery] = useState("")
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const query = e.target.value
 		setSearchQuery(query)
-		onSearch(query)
+		filterChannels(query)
 	}
 
 	return (
@@ -44,7 +44,7 @@ export const SearchChannels = ({ onSearch, totalChannels }: Props) => {
 					<button
 						onClick={() => {
 							setSearchQuery("")
-							onSearch("")
+							filterChannels("")
 						}}
 						className="text-primary-500 hover:text-primary-400"
 					>
